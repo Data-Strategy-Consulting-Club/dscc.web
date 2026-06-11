@@ -22,17 +22,23 @@ section {
   margin-left: auto;
 }
 
-.horiz-gallery-strip,
 .horiz-gallery-wrapper {
   display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow: visible;
+}
+
+.horiz-gallery-strip {
+  display: flex;
   flex-wrap: nowrap;
-  will-change: transform;
-  position: relative;
+  width: max-content;
 }
 
 .project-wrap {
-  width: 33vw;
-  padding: 2rem;
+  width: 25vw;
+  padding-left: 1rem;
+  padding-right: 1rem;
   box-sizing: content-box;
 }
 .project-wrap img {
