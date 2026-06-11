@@ -35,7 +35,6 @@ export default class extends Controller {
                 scrub: true,
                 trigger: sec,
                 pin: j === 0 ? sec : false,
-                markers: true,
                 start: "center center",
                 end: () => `+=${pinWrap.scrollWidth}`,
                 invalidateOnRefresh: true
@@ -51,7 +50,6 @@ export default class extends Controller {
                   scrub: true,
                   trigger: sec,
                   pin: false,
-                  markers: true,
                   start: "center center",
                   end: () => `+=${pinWrap.scrollWidth}`,
                   invalidateOnRefresh: true

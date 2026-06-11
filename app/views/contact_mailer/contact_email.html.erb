@@ -1,0 +1,23 @@
+<h1>New Contact Form Submission</h1>
+
+<table style="width:100%;border-collapse:collapse;">
+  <tr>
+    <td style="padding:8px 12px;font-weight:bold;border-bottom:1px solid #eee;">Name</td>
+    <td style="padding:8px 12px;border-bottom:1px solid #eee;"><%= @name %></td>
+  </tr>
+  <tr>
+    <td style="padding:8px 12px;font-weight:bold;border-bottom:1px solid #eee;">Email</td>
+    <td style="padding:8px 12px;border-bottom:1px solid #eee;"><%= @email %></td>
+  </tr>
+  <tr>
+    <td style="padding:8px 12px;font-weight:bold;border-bottom:1px solid #eee;">Organization</td>
+    <td style="padding:8px 12px;border-bottom:1px solid #eee;"><%= @organization %></td>
+  </tr>
+  <tr>
+    <td style="padding:8px 12px;font-weight:bold;border-bottom:1px solid #eee;">Phone</td>
+    <td style="padding:8px 12px;border-bottom:1px solid #eee;"><%= @phone %></td>
+  </tr>
+</table>
+
+<h2 style="margin-top:24px;">Message</h2>
+<p style="line-height:1.6;"><%= simple_format @message %></p>
