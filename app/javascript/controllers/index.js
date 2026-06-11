@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import TRealsController from "./t_reals_controller"
 application.register("t-reals", TRealsController)
+
+import TrustedByController from "./trusted_by_controller"
+application.register("trusted-by", TrustedByController)

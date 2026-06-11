@@ -46,3 +46,23 @@ section {
   aspect-ratio: 1/1;
   object-fit: cover;
 }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.trusted-by-wrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.trusted-by-track {
+  display: flex;
+  gap: 3rem;
+  width: max-content;
+}
+
+.trusted-by-track.is-animating {
+  animation: marquee 40s linear infinite;
+}
