@@ -9,3 +9,6 @@ application.register("t-reals", TRealsController)
 
 import TrustedByController from "./trusted_by_controller"
 application.register("trusted-by", TrustedByController)
+
+import ScrollToSection from "./scroll_to_section_controller"
+application.register("scroll-to-section", ScrollToSection)

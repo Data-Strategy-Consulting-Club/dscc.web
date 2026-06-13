@@ -6,7 +6,6 @@ import { ScrollSmoother } from "gsap/ScrollSmoother"
 // Connects to data-controller="t-reals"
 export default class extends Controller {
   connect() {
-    console.log(ScrollTrigger)
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
     const smoother = ScrollSmoother.create({
