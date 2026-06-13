@@ -14,7 +14,7 @@ export default class extends Controller {
     const href = event.currentTarget.getAttribute("href")
 
     gsap.to(window, {
-      duration: 1,
+      duration: 0.1,
       scrollTo: {
         y: href,
         offsetY: 120
