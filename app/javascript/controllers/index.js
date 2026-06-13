@@ -12,3 +12,6 @@ application.register("trusted-by", TrustedByController)
 
 import ScrollToSection from "./scroll_to_section_controller"
 application.register("scroll-to-section", ScrollToSection)
+
+import Navbar from "./navbar_controller"
+application.register("navbar", Navbar)
