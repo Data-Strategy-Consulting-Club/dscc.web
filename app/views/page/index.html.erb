@@ -1,33 +1,68 @@
-<section id="overview" class="relative min-h-[calc(100dvh-4rem)] flex justify-center pt-10 px-10 lg:items-start lg:justify-between">
-  <div class="flex flex-col items-start text-start lg:mt-30 lg:mr-30">
+<section id="overview" class="relative min-h-[calc(100dvh-4rem)] flex flex-col lg:flex-row justify-center pt-10 px-10 lg:items-start lg:justify-between">
+  <div class="flex flex-col lg:items-start lg:text-start lg:mt-30 lg:mr-30">
     <h1 id="overview" class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">Data Strategy<br>Consulting Club</h1>
     <p class="mb-6 text-lg font-normal text-body lg:text-xl">A student-led consulting club using data and strategy to solve<br>real-world business challenges.</p>
-    <a href="#contact" class="inline-block text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-base px-5 py-3 focus:outline-none">Contact Us</a>
+    <a href="#contact" class="inline-block self-center lg:self-start text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-base px-5 py-3 focus:outline-none">Contact Us</a>
   </div>
-  <div class="lg:w-100 lg:mt-10">
-    <p class="text-start text-body">
+  <div class="lg:w-100 mt-10">
+    <p class="opacity-40 lg:opacity-100 text-start text-body">
       Turning data into decisions and ideas into measurable impact.
       We help organizations solve real business challenges through analytics, AI, and strategy.
     </p>
   </div>
 </section>
 
-<section id="who-we-are" class="flex justify-between h-screen px-12 lg:px-24 gap-12">
+<section
+  id="who-we-are"
+  class="flex flex-col lg:flex-row justify-between items-center px-6 lg:px-24 gap-8 lg:gap-12 min-h-screen"
+>
   <!-- Content -->
-  <div class="flex-1 max-w-xl mt-40">
+  <div class="order-2 lg:order-1 flex-1 max-w-xl">
     <h2 class="mb-8 text-4xl font-bold text-heading">
       Who we are
     </h2>
-    <p class="text-start text-body">
-      We are a community of students passionate about <span class="text-fg-brand font-bold">Data Analytics</span>, <span class="text-fg-brand font-bold">Business Strategy</span>, and <span class="text-fg-brand font-bold">Technology Innovation</span>. Our mission is to empower organizations with <span class="text-fg-brand font-bold">Data-Driven Decision Making</span>, improve operational efficiency, and accelerate <span class="text-fg-brand font-bold">Digital Transformation</span> through modern consulting practices.
 
-      By combining analytical thinking, industry research, and hands-on experience, we deliver actionable insights, <span class="text-fg-brand font-bold">AI-Powered Solutions</span>, and strategic recommendations that drive measurable Business Growth and long-term value.
+    <p class="text-start text-body leading-relaxed">
+      We are a community of students passionate about
+      <span class="text-fg-brand font-bold">Data Analytics</span>,
+      <span class="text-fg-brand font-bold">Business Strategy</span>, and
+      <span class="text-fg-brand font-bold">Technology Innovation</span>.
+
+      Our mission is to empower organizations with
+      <span class="text-fg-brand font-bold">Data-Driven Decision Making</span>,
+      improve operational efficiency, and accelerate
+      <span class="text-fg-brand font-bold">Digital Transformation</span>
+      through modern consulting practices.
+
+      <br><br>
+
+      By combining analytical thinking, industry research, and hands-on
+      experience, we deliver actionable insights,
+      <span class="text-fg-brand font-bold">AI-Powered Solutions</span>,
+      and strategic recommendations that drive measurable
+      <span class="text-fg-brand font-bold">Business Growth</span>
+      and long-term value.
     </p>
   </div>
 
   <!-- Image -->
   <div
-    class="flex mt-30 items-center justify-center flex-shrink-0 w-[600px] h-[400px] bg-neutral-quaternary rounded-base animate-pulse"
+    class="
+      order-1 lg:order-2
+      w-full
+      max-w-[600px]
+      h-64
+      sm:h-80
+      lg:w-[600px]
+      lg:h-[400px]
+      flex
+      items-center
+      justify-center
+      bg-neutral-quaternary
+      rounded-base
+      animate-pulse
+      flex-shrink-0
+    "
   >
     <svg
       class="w-12 h-12 text-fg-disabled"
@@ -47,14 +82,17 @@
   </div>
 </section>
 
-<section id="services" class="flex flex-col justify-center h-screen px-40 py-20">
+<section
+  id="services"
+  class="flex flex-col justify-center min-h-screen px-6 py-16 md:px-12 lg:px-20 xl:px-40"
+>
   <!-- Header -->
   <div class="max-w-4xl mx-auto text-center">
     <h2 class="mb-6 text-4xl font-bold text-heading">
       Our Services
     </h2>
 
-    <p class="text-lg text-body leading-8">
+    <p class="text-base md:text-lg text-body leading-7 md:leading-8">
       We help organizations unlock value from their data, automate
       business processes, and leverage artificial intelligence to drive
       smarter decisions, operational excellence, and sustainable growth.
@@ -62,11 +100,11 @@
   </div>
 
   <!-- Service Cards -->
-  <div class="grid grid-cols-1 gap-8 mt-16 md:grid-cols-2 xl:grid-cols-3">
+  <div class="grid grid-cols-1 gap-6 mt-12 md:mt-16 md:grid-cols-2 xl:grid-cols-3">
 
     <!-- Analytics -->
-    <div class="p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs">
-      <h3 class="mb-2 text-2xl font-bold text-heading">
+    <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs">
+      <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
         Analytics & Decision Intelligence
       </h3>
 
@@ -92,8 +130,8 @@
     </div>
 
     <!-- Automation -->
-    <div class="p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs">
-      <h3 class="mb-2 text-2xl font-bold text-heading">
+    <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs">
+      <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
         Automation & AI Integration
       </h3>
 
@@ -118,8 +156,8 @@
     </div>
 
     <!-- Data -->
-    <div class="p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs">
-      <h3 class="mb-2 text-2xl font-bold text-heading">
+    <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs">
+      <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
         Data Strategy & Transformation
       </h3>
 
