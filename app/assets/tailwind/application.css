@@ -36,10 +36,11 @@ section {
 }
 
 .project-wrap {
-  width: 25vw;
+  width: 25rem;
+  flex-shrink: 0;
   padding-left: 1rem;
   padding-right: 1rem;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 .project-wrap img {
   width: 100%;
