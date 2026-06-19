@@ -2,6 +2,13 @@
 @import "flowbite/src/themes/default";
 @plugin "flowbite/plugin";
 
+.hero-text-bg {
+  text-shadow: 
+    0px 0px 20px #FFFFFF,
+    0px 0px 30px #FFFFFF,
+    0px 0px 30px #FFFFFF,
+    0px 0px 40px #FFFFFF;
+}
 
 .row,
 .section,
