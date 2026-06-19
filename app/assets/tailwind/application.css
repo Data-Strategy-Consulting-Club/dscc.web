@@ -4,10 +4,10 @@
 
 .hero-text-bg {
   text-shadow: 
-    0px 0px 20px #FFFFFF,
-    0px 0px 30px #FFFFFF,
-    0px 0px 30px #FFFFFF,
-    0px 0px 40px #FFFFFF;
+    0 0 20px rgba(255,255,255,.9),
+    0 0 40px rgba(255,255,255,.8),
+    0 0 80px rgba(255,255,255,.6),
+    0 0 120px rgba(255,255,255,.4);
 }
 
 .row,
