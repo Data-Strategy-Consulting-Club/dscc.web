@@ -19,14 +19,13 @@
            pointer-events-none"
   ></div>
   <div class="flex flex-col lg:items-start lg:text-start lg:mt-30 lg:mr-30">
-    <h1 id="overview" class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl">Data Strategy<br>Consulting Club</h1>
-    <p class="mb-6 text-lg font-normal text-body lg:text-xl">A student-led consulting club using data and strategy to solve<br>real-world business challenges.</p>
-    <a href="#contact" class="inline-block self-center lg:self-start text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-base px-5 py-3 focus:outline-none">Contact Us</a>
+    <h1 id="overview" class="mb-4 text-4xl font-bold tracking-tight text-heading md:text-5xl lg:text-6xl"><%= sc("overview", "h1") %></h1>
+    <p class="mb-6 text-lg font-normal text-body lg:text-xl"><%= sc("overview", "tagline") %></p>
+    <a href="#contact" class="inline-block self-center lg:self-start text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-base px-5 py-3 focus:outline-none"><%= sc("navbar", "contact_button") %></a>
   </div>
   <div class="lg:w-100 mt-10">
     <p class="opacity-40 lg:opacity-100 text-start text-body">
-      Turning data into decisions and ideas into measurable impact.
-      We help organizations solve real business challenges through analytics, AI, and strategy.
+      <%= sc("overview", "sidebar") %>
     </p>
   </div>
   <div
@@ -43,29 +42,11 @@
   <!-- Content -->
   <div class="order-2 lg:order-1 flex-1 max-w-xl">
     <h2 class="mb-8 text-4xl font-bold text-heading">
-      Who We Are
+      <%= sc("navbar", "who_we_are_label") %>
     </h2>
 
     <p class="text-start text-body leading-relaxed">
-      We are a community of students passionate about
-      <span class="text-fg-brand font-bold">Data Analytics</span>,
-      <span class="text-fg-brand font-bold">Business Strategy</span>, and
-      <span class="text-fg-brand font-bold">Technology Innovation</span>.
-
-      Our mission is to empower organizations with
-      <span class="text-fg-brand font-bold">Data-Driven Decision Making</span>,
-      improve operational efficiency, and accelerate
-      <span class="text-fg-brand font-bold">Digital Transformation</span>
-      through modern consulting practices.
-
-      <br><br>
-
-      By combining analytical thinking, industry research, and hands-on
-      experience, we deliver actionable insights,
-      <span class="text-fg-brand font-bold">AI-Powered Solutions</span>,
-      and strategic recommendations that drive measurable
-      <span class="text-fg-brand font-bold">Business Growth</span>
-      and long-term value.
+      <%= sc("who_we_are", "body") %>
     </p>
   </div>
 
@@ -84,25 +65,29 @@
       justify-center
       bg-neutral-quaternary
       rounded-base
-      animate-pulse
       flex-shrink-0
+      overflow-hidden
     "
   >
-    <svg
-      class="w-12 h-12 text-fg-disabled"
-      aria-hidden="true"
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-    >
-      <path
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"
-      />
-    </svg>
+    <% if (img = sc_image("who_we_are", "image", class: "w-full h-full object-cover")) %>
+      <%= img %>
+    <% else %>
+      <svg
+        class="w-12 h-12 text-fg-disabled animate-pulse"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"
+        />
+      </svg>
+    <% end %>
   </div>
 </section>
 
@@ -113,95 +98,82 @@
   <!-- Header -->
   <div class="max-w-4xl mx-auto text-center">
     <h2 class="mb-6 text-4xl font-bold text-heading">
-      Our Services
+      <%= sc("navbar", "services_label") %>
     </h2>
 
     <p class="text-base md:text-lg text-body leading-7 md:leading-8">
-      We help organizations unlock value from their data, automate
-      business processes, and leverage artificial intelligence to drive
-      smarter decisions, operational excellence, and sustainable growth.
+      <%= sc("our_services", "header") %>
     </p>
   </div>
 
   <!-- Service Cards -->
   <div class="grid grid-cols-1 gap-6 mt-12 md:mt-16 md:grid-cols-2 xl:grid-cols-3">
 
-    <!-- Analytics -->
+    <!-- Card 1 -->
     <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs">
       <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
-        Analytics & Decision Intelligence
+        <%= sc("our_services", "card1_heading") %>
       </h3>
 
       <p class="mb-6 text-body italic">
-        Define strategy, optimize operations, and offer clear advice for
-        complex decisions.
+        <%= sc("our_services", "card1_desc") %>
       </p>
 
       <ul class="space-y-3 text-body">
-        <li>✓ Foresight, Not Guesswork</li>
-        <li>✓ AI-Powered Predictive Models</li>
-        <li>✓ Decision Dashboards & Reporting</li>
-        <li>✓ Risk & Opportunity Detection</li>
-        <li>✓ Delivered AI Intelligence Asset</li>
+        <% sc("our_services", "card1_features").split("\n").each do |item| %>
+          <li>✓ <%= item %></li>
+        <% end %>
       </ul>
 
       <div class="pt-6 mt-6 border-t border-default">
         <p class="text-sm text-body">
-          Focused on unlocking business insights and leveraging AI for
-          smarter decisions.
+          <%= sc("our_services", "card1_footer") %>
         </p>
       </div>
     </div>
 
-    <!-- Automation -->
+    <!-- Card 2 -->
     <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs">
       <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
-        Automation & AI Integration
+        <%= sc("our_services", "card2_heading") %>
       </h3>
 
       <p class="mb-6 text-body italic">
-        Design plans to transform core processes and implement AI tools
-        that cut manual costs.
+        <%= sc("our_services", "card2_desc") %>
       </p>
 
       <ul class="space-y-3 text-body">
-        <li>✓ Reduced Manual Effort</li>
-        <li>✓ Process Mapping & Optimization</li>
-        <li>✓ AI Service & Architecture Design</li>
-        <li>✓ CRM / ERP Integration</li>
-        <li>✓ Cost-Optimized Deployment</li>
+        <% sc("our_services", "card2_features").split("\n").each do |item| %>
+          <li>✓ <%= item %></li>
+        <% end %>
       </ul>
 
       <div class="pt-6 mt-6 border-t border-default">
         <p class="text-sm text-body">
-          Focused on automating workflows and improving productivity.
+          <%= sc("our_services", "card2_footer") %>
         </p>
       </div>
     </div>
 
-    <!-- Data -->
+    <!-- Card 3 -->
     <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs">
       <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
-        Data Strategy & Transformation
+        <%= sc("our_services", "card3_heading") %>
       </h3>
 
       <p class="mb-6 text-body italic">
-        Design plans to modernize data practices and establish governance
-        standards.
+        <%= sc("our_services", "card3_desc") %>
       </p>
 
       <ul class="space-y-3 text-body">
-        <li>✓ Data Strategy & Roadmap</li>
-        <li>✓ Centralized Data Foundation</li>
-        <li>✓ Historical Data Standardization</li>
-        <li>✓ ETL / ELT Pipeline Development</li>
-        <li>✓ Data Governance & Security</li>
+        <% sc("our_services", "card3_features").split("\n").each do |item| %>
+          <li>✓ <%= item %></li>
+        <% end %>
       </ul>
 
       <div class="pt-6 mt-6 border-t border-default">
         <p class="text-sm text-body">
-          Focused on delivering data solutions that transform and drive
-          growth.
+          <%= sc("our_services", "card3_footer") %>
         </p>
       </div>
     </div>
@@ -212,12 +184,11 @@
 <section id="reals" data-controller="t-reals" class="min-h-screen py-16">
   <section class="panel plain px-6 md:px-12">
     <h2 class="mb-6 text-4xl font-bold text-heading">
-      3 Reals
+      <%= sc("navbar", "reals_label") %>
     </h2>
 
     <p class="text-lg text-body leading-8">
-      Real client, real growth, and real  — the three pillars
-      that define our hands-on approach to data strategy consulting.
+      <%= sc("three_reals", "description") %>
     </p>
   </section>
 
@@ -227,43 +198,71 @@
         <!-- Reals Client -->
         <div class="horiz-gallery-strip">
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "client_image_0", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "client_image_1", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "client_image_2", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="px-20 flex text-center justify-center items-center">
             <h3 class="mb-6 text-3xl font-bold text-heading">
-              Real Client
-            </h2>
+              <%= sc("three_reals", "client_heading") %>
+            </h3>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "client_image_3", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "client_image_4", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "client_image_5", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "client_image_6", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
         </div>
@@ -271,43 +270,71 @@
         <!-- Reals Growth -->
         <div class="horiz-gallery-strip">
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "growth_image_0", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "growth_image_1", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "growth_image_2", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "growth_image_3", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "growth_image_4", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "growth_image_5", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="px-20 flex text-center justify-center items-center">
             <h3 class="mb-6 text-3xl font-bold text-heading">
-              Real Growth
-            </h2>
+              <%= sc("three_reals", "growth_heading") %>
+            </h3>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "growth_image_6", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
         </div>
@@ -315,43 +342,71 @@
         <!-- Reals Connection -->
         <div class="horiz-gallery-strip">
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "connection_image_0", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="px-20 flex text-center justify-center items-center">
             <h3 class="mb-6 text-3xl font-bold text-heading">
-              Real Connection
-            </h2>
+              <%= sc("three_reals", "connection_heading") %>
+            </h3>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "connection_image_1", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "connection_image_2", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "connection_image_3", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "connection_image_4", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "connection_image_5", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
           <div class="project-wrap">
-            <div class="animate-pulse flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base">
-                <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+            <div class="flex items-center justify-center w-full h-48 bg-neutral-quaternary rounded-base overflow-hidden">
+              <% if (img = sc_image("three_reals", "connection_image_6", class: "max-h-48 w-auto")) %>
+                <%= img %>
+              <% else %>
+                <svg class="w-11 h-11 text-fg-disabled animate-pulse" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+              <% end %>
             </div>
           </div>
         </div>
@@ -363,31 +418,21 @@
 <section id="trusted-by" class="mt-10 mb-16 flex flex-col overflow-hidden">
   <div class="max-w-4xl mx-auto mb-16">
     <h2 class="text-4xl font-bold text-heading">
-      Trusted By
+      <%= sc("navbar", "trusted_by_label") %>
     </h2>
   </div>
-  <div role="status" class="flex justify-center space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center">
-    <div class="shrink-0 flex items-center justify-center w-20 h-20 bg-neutral-quaternary rounded-base">
-        <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
-    </div>
-    <div class="shrink-0 flex items-center justify-center w-20 h-20 bg-neutral-quaternary rounded-base">
-        <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
-    </div>
-    <div class="shrink-0 flex items-center justify-center w-20 h-20 bg-neutral-quaternary rounded-base">
-        <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
-    </div>
-    <div class="shrink-0 flex items-center justify-center w-20 h-20 bg-neutral-quaternary rounded-base">
-        <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
-    </div>
-    <div class="shrink-0 flex items-center justify-center w-20 h-20 bg-neutral-quaternary rounded-base">
-        <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
-    </div>
-    <div class="shrink-0 flex items-center justify-center w-20 h-20 bg-neutral-quaternary rounded-base">
-        <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
-    </div>
-    <div class="shrink-0 flex items-center justify-center w-20 h-20 bg-neutral-quaternary rounded-base">
-        <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
-    </div>
+  <div class="flex justify-center space-y-8 md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center">
+    <% SiteContent.by_section("trusted_by").each do |record| %>
+      <div class="shrink-0 flex items-center justify-center min-w-20 min-h-10">
+        <% if record.file.attached? %>
+          <%= image_tag record.file, class: "max-h-10 w-auto h-auto" %>
+        <% else %>
+          <div class="animate-pulse flex items-center justify-center w-full h-full">
+            <svg class="w-11 h-11 text-fg-disabled" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/></svg>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </section>
 
@@ -395,30 +440,30 @@
 <section id="contact" class="min-h-screen flex flex-col justify-center px-6 lg:px-20 py-20">
   <div class="max-w-6xl mx-auto w-full">
     <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold text-heading mb-4">Contact Us</h2>
-      <p class="text-lg text-body">Have a question or want to work with us? We'd love to hear from you.</p>
+      <h2 class="text-4xl font-bold text-heading mb-4"><%= sc("contact_us", "heading") %></h2>
+      <p class="text-lg text-body"><%= sc("contact_us", "description") %></p>
     </div>
 
     <div class="flex flex-col lg:flex-row gap-12 lg:gap-20">
       <div class="lg:w-5/12 text-left">
-        <h3 class="text-2xl font-bold text-heading mb-4">Get in Touch</h3>
+        <h3 class="text-2xl font-bold text-heading mb-4"><%= sc("contact_us", "get_in_touch") %></h3>
         <p class="text-body mb-8 leading-relaxed">
-          Whether you're a student looking to join, a client with a project, or just want to learn more — we're here to help.
+          <%= sc("contact_us", "help_text") %>
         </p>
 
         <div class="space-y-6">
           <div class="flex items-center gap-4">
             <svg class="w-6 h-6 text-brand flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21.5 6.5v11a1 1 0 0 1-1 1h-17a1 1 0 0 1-1-1v-11m19 0-9 6.5-9-6.5m19 0h-19"/></svg>
             <div>
-              <p class="text-sm text-body">Email</p>
-              <a href="mailto:hello@dscc.org" class="text-heading hover:text-brand font-medium">hello@dscc.org</a>
+              <p class="text-sm text-body"><%= sc("contact_us", "email_label") %></p>
+              <a href="mailto:<%= sc("contact_us", "email_value") %>" class="text-heading hover:text-brand font-medium"><%= sc("contact_us", "email_value") %></a>
             </div>
           </div>
           <div class="flex items-center gap-4">
             <svg class="w-6 h-6 text-brand flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.4 5.6a8.8 8.8 0 0 1 0 12.8M15.3 8.7a4.8 4.8 0 0 1 0 6.6M12 12h.01M12 12h.01M9.7 8.7a4.8 4.8 0 0 0 0 6.6M5.6 5.6a8.8 8.8 0 0 0 0 12.8"/></svg>
             <div>
-              <p class="text-sm text-body">Phone</p>
-              <span class="text-heading font-medium">+1 (555) 000-0000</span>
+              <p class="text-sm text-body"><%= sc("contact_us", "phone_label") %></p>
+              <span class="text-heading font-medium"><%= sc("contact_us", "phone_value") %></span>
             </div>
           </div>
         </div>
@@ -428,28 +473,28 @@
         <%= form_with url: contact_path, local: true, class: "space-y-5" do |form| %>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <%= form.label :name, "Name", class: "block text-sm font-medium text-heading mb-1.5" %>
-              <%= form.text_field :name, required: true, placeholder: "Your name", class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
+              <%= form.label :name, sc("contact_us", "name_label"), class: "block text-sm font-medium text-heading mb-1.5" %>
+              <%= form.text_field :name, required: true, placeholder: sc("contact_us", "name_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
             </div>
             <div>
-              <%= form.label :email, "Email", class: "block text-sm font-medium text-heading mb-1.5" %>
-              <%= form.email_field :email, required: true, placeholder: "your@email.com", class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
+              <%= form.label :email, sc("contact_us", "email_field_label"), class: "block text-sm font-medium text-heading mb-1.5" %>
+              <%= form.email_field :email, required: true, placeholder: sc("contact_us", "email_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
             </div>
             <div>
-              <%= form.label :organization, "Organization", class: "block text-sm font-medium text-heading mb-1.5" %>
-              <%= form.text_field :organization, placeholder: "Company or school", class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
+              <%= form.label :organization, sc("contact_us", "org_label"), class: "block text-sm font-medium text-heading mb-1.5" %>
+              <%= form.text_field :organization, placeholder: sc("contact_us", "org_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
             </div>
             <div>
-              <%= form.label :phone, "Phone", class: "block text-sm font-medium text-heading mb-1.5" %>
-              <%= form.telephone_field :phone, placeholder: "+1 (555) 000-0000", class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
+              <%= form.label :phone, sc("contact_us", "phone_field_label"), class: "block text-sm font-medium text-heading mb-1.5" %>
+              <%= form.telephone_field :phone, placeholder: sc("contact_us", "phone_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
             </div>
           </div>
           <div>
-            <%= form.label :message, "Message", class: "block text-sm font-medium text-heading mb-1.5" %>
-            <%= form.text_area :message, rows: 5, required: true, placeholder: "Tell us about your project or question...", class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none resize-none" %>
+            <%= form.label :message, sc("contact_us", "message_label"), class: "block text-sm font-medium text-heading mb-1.5" %>
+            <%= form.text_area :message, rows: 5, required: true, placeholder: sc("contact_us", "message_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none resize-none" %>
           </div>
           <div class="text-right">
-            <%= form.submit "Send Message", class: "text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-base px-6 py-3 focus:outline-none cursor-pointer" %>
+            <%= form.submit sc("contact_us", "submit_text"), class: "text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-base px-6 py-3 focus:outline-none cursor-pointer" %>
           </div>
         <% end %>
       </div>

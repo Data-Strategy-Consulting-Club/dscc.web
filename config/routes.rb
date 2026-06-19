@@ -14,4 +14,13 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   post "contact", to: "page#contact"
+
+  get "admin", to: redirect("/admin/content")
+
+  namespace :admin do
+    resource :content, only: %i[show update], controller: :content do
+      post :add_image, on: :collection
+      delete :remove_image, on: :collection
+    end
+  end
 end

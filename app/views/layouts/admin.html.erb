@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin — DSCC</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  </head>
+  <body class="bg-gray-50 text-gray-900">
+    <nav class="bg-white border-b border-gray-200 fixed w-full z-20 top-0">
+      <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+          <a href="/" class="text-sm text-gray-500 hover:text-gray-700">← Back to site</a>
+          <span class="text-lg font-bold">Admin</span>
+        </div>
+        <span class="text-sm text-gray-400">Site Content</span>
+      </div>
+    </nav>
+
+    <main class="pt-16 pb-12">
+      <% if flash[:notice] %>
+        <div class="max-w-7xl mx-auto px-4 mt-4">
+          <div class="bg-green-100 text-green-800 px-4 py-3 rounded-lg">
+            <%= flash[:notice] %>
+          </div>
+        </div>
+      <% end %>
+      <%= yield %>
+    </main>
+  </body>
+</html>

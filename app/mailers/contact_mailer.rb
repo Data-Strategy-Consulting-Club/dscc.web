@@ -1,6 +1,4 @@
 class ContactMailer < ApplicationMailer
-  default from: "hello@dscc.org"
-
   def contact_email(name, email, organization, phone, message)
     @name = name
     @email = email
@@ -8,6 +6,9 @@ class ContactMailer < ApplicationMailer
     @phone = phone
     @message = message
 
-    mail(to: "hello@dscc.org", subject: "New Contact Form Submission from #{name}")
+    contact_email = SiteContent.find_by(section: "contact_us", key: "email_value")&.content || "hello@dscc.org"
+
+    default from: contact_email
+    mail(to: contact_email, subject: "New Contact Form Submission from #{name}")
   end
 end
