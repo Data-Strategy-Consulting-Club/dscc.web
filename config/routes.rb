@@ -15,9 +15,13 @@ Rails.application.routes.draw do
 
   post "contact", to: "page#contact"
 
-  get "admin", to: redirect("/admin/content")
+  get "admin", to: redirect("/admin/login")
 
   namespace :admin do
+    get "login", to: "sessions#new"
+    post "login", to: "sessions#create"
+    delete "logout", to: "sessions#destroy"
+
     resource :content, only: %i[show update], controller: :content do
       post :add_image, on: :collection
       delete :remove_image, on: :collection

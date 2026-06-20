@@ -3,6 +3,8 @@ module Admin
     layout "admin"
     helper Admin::ContentHelper
 
+    before_action :authenticate_admin!
+
     def show
       groups = SiteContent.ordered.group_by(&:section)
       section_order = %w[navbar overview who_we_are our_services three_reals trusted_by contact_us]
