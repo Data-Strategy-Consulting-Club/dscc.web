@@ -1,11 +1,10 @@
 <section id="overview" class="relative min-h-[calc(100dvh+80px)] flex flex-col lg:flex-row justify-center pt-26 px-10 lg:items-start lg:justify-between">
-  <div id="overview-bg" class="absolute inset-0 -z-20"></div>
+  <div id="overview-bg" data-controller="vanta-topology" class="absolute inset-0 -z-20"></div>
   <div
     class="absolute left-1/6 top-2/5 -translate-x-1/2 -translate-y-1/2
            w-[800px] h-[800px]
            rounded-full
-           bg-white/100
-           blur-[120px]
+           bg-[radial-gradient(circle,_rgba(255,255,255,1)_0%,_rgba(255,255,255,0.9)_30%,_rgba(255,255,255,0)_70%)]
            -z-10
            pointer-events-none"
   ></div>
@@ -13,8 +12,7 @@
     class="absolute left-2/2 top-0/2 -translate-x-1/2 -translate-y-1/2
            w-[1200px] h-[800px]
            rounded-full
-           bg-white/100
-           blur-[120px]
+           bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,1)_0%,_rgba(255,255,255,0.9)_30%,_rgba(255,255,255,0)_70%)]
            -z-10
            pointer-events-none"
   ></div>
@@ -110,20 +108,20 @@
   <div class="grid grid-cols-1 gap-6 mt-12 md:mt-16 md:grid-cols-2 xl:grid-cols-3">
 
     <!-- Card 1 -->
-    <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs">
-      <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
-        <%= sc("our_services", "card1_heading") %>
-      </h3>
+    <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs flex flex-col justify-between">
+      <div>
+        <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
+          <%= sc("our_services", "card1_heading") %>
+        </h3>
 
-      <p class="mb-6 text-body italic">
-        <%= sc("our_services", "card1_desc") %>
-      </p>
+        <p class="mb-6 text-body italic">
+          <%= sc("our_services", "card1_desc") %>
+        </p>
 
-      <ul class="space-y-3 text-body">
-        <% sc("our_services", "card1_features").split("\n").each do |item| %>
-          <li>✓ <%= item %></li>
-        <% end %>
-      </ul>
+        <div class="text-body">
+          <%= sc("our_services", "card1_features") %>
+        </div>
+      </div>
 
       <div class="pt-6 mt-6 border-t border-default">
         <p class="text-sm text-body">
@@ -133,20 +131,20 @@
     </div>
 
     <!-- Card 2 -->
-    <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs">
-      <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
-        <%= sc("our_services", "card2_heading") %>
-      </h3>
+    <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs flex flex-col justify-between">
+      <div>
+        <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
+          <%= sc("our_services", "card2_heading") %>
+        </h3>
 
-      <p class="mb-6 text-body italic">
-        <%= sc("our_services", "card2_desc") %>
-      </p>
+        <p class="mb-6 text-body italic">
+          <%= sc("our_services", "card2_desc") %>
+        </p>
 
-      <ul class="space-y-3 text-body">
-        <% sc("our_services", "card2_features").split("\n").each do |item| %>
-          <li>✓ <%= item %></li>
-        <% end %>
-      </ul>
+        <div class="text-body">
+          <%= sc("our_services", "card2_features") %>
+        </div>
+      </div>
 
       <div class="pt-6 mt-6 border-t border-default">
         <p class="text-sm text-body">
@@ -156,20 +154,20 @@
     </div>
 
     <!-- Card 3 -->
-    <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs">
-      <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
-        <%= sc("our_services", "card3_heading") %>
-      </h3>
+    <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs flex flex-col justify-between">
+      <div>
+        <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
+          <%= sc("our_services", "card3_heading") %>
+        </h3>
 
-      <p class="mb-6 text-body italic">
-        <%= sc("our_services", "card3_desc") %>
-      </p>
+        <p class="mb-6 text-body italic">
+          <%= sc("our_services", "card3_desc") %>
+        </p>
 
-      <ul class="space-y-3 text-body">
-        <% sc("our_services", "card3_features").split("\n").each do |item| %>
-          <li>✓ <%= item %></li>
-        <% end %>
-      </ul>
+        <div class="text-body">
+          <%= sc("our_services", "card3_features") %>
+        </div>
+      </div>
 
       <div class="pt-6 mt-6 border-t border-default">
         <p class="text-sm text-body">

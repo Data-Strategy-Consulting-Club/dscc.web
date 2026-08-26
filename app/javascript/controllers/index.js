@@ -18,3 +18,6 @@ application.register("toast", ToastController)
 
 import TrustedByController from "./trusted_by_controller"
 application.register("trusted-by", TrustedByController)
+
+import VantaTopologyController from "./vanta_topology_controller"
+application.register("vanta-topology", VantaTopologyController)

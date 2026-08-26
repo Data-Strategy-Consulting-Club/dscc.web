@@ -21,6 +21,8 @@
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag :tailwind, "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js" defer></script>
   </head>
 
   <body class="bg-white text-body font-sans" data-controller="scroll-to-section">
@@ -74,18 +76,4 @@
       </div>
     </div>
   </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.1.9/p5.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.topology.min.js"></script>
-  <script>
-    VANTA.TOPOLOGY({
-      el: "#overview-bg",
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      scale: 0.20,
-      scaleMobile: 1.00,
-      color: 0x3176db,
-      backgroundColor: 0xffffff
-    })
-  </script>
 </html>
