@@ -7,6 +7,9 @@ import { application } from "./application"
 import AdminDetailsController from "./admin_details_controller"
 application.register("admin-details", AdminDetailsController)
 
+import GalleryDraggableController from "./gallery_draggable_controller"
+application.register("gallery-draggable", GalleryDraggableController)
+
 import NavbarController from "./navbar_controller"
 application.register("navbar", NavbarController)
 
