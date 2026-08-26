@@ -6,9 +6,10 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :tailwind, "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
-  <body class="bg-gray-50 text-gray-900">
+  <body class="bg-gray-50 text-gray-900" data-admin="true">
     <nav class="bg-white border-b border-gray-200 fixed w-full z-20 top-0">
       <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         <div class="flex items-center gap-4">
@@ -25,13 +26,7 @@
     </nav>
 
     <main class="pt-16 pb-12">
-      <% if flash[:notice] %>
-        <div class="max-w-7xl mx-auto px-4 mt-4">
-          <div class="bg-green-100 text-green-800 px-4 py-3 rounded-lg">
-            <%= flash[:notice] %>
-          </div>
-        </div>
-      <% end %>
+      <%= render "shared/toast" %>
       <%= yield %>
     </main>
   </body>

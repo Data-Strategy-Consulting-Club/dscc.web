@@ -1,0 +1,24 @@
+<% if flash[:notice] %>
+  <div class="fixed top-20 right-6 z-50 transition-all duration-300 ease-out flex items-center p-4 text-green-800 rounded-base bg-green-50 border border-green-200 shadow-lg"
+       role="alert"
+       data-controller="toast"
+       data-toast-duration-value="4000"
+       data-action="mouseenter->toast#clearTimer mouseleave->toast#startTimer">
+    <svg class="flex-shrink-0 w-5 h-5 me-2 text-green-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+    </svg>
+    <span class="text-sm font-medium"><%= flash[:notice] %></span>
+  </div>
+<% end %>
+<% if flash[:alert] %>
+  <div class="fixed top-20 right-6 z-50 transition-all duration-300 ease-out flex items-center p-4 text-red-800 rounded-base bg-red-50 border border-red-200 shadow-lg"
+       role="alert"
+       data-controller="toast"
+       data-toast-duration-value="4000"
+       data-action="mouseenter->toast#clearTimer mouseleave->toast#startTimer">
+    <svg class="flex-shrink-0 w-5 h-5 me-2 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+      <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
+    </svg>
+    <span class="text-sm font-medium"><%= flash[:alert] %></span>
+  </div>
+<% end %>

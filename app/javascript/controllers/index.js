@@ -4,14 +4,17 @@
 
 import { application } from "./application"
 
+import NavbarController from "./navbar_controller"
+application.register("navbar", NavbarController)
+
+import ScrollToSectionController from "./scroll_to_section_controller"
+application.register("scroll-to-section", ScrollToSectionController)
+
 import TRealsController from "./t_reals_controller"
 application.register("t-reals", TRealsController)
 
+import ToastController from "./toast_controller"
+application.register("toast", ToastController)
+
 import TrustedByController from "./trusted_by_controller"
 application.register("trusted-by", TrustedByController)
-
-import ScrollToSection from "./scroll_to_section_controller"
-application.register("scroll-to-section", ScrollToSection)
-
-import Navbar from "./navbar_controller"
-application.register("navbar", Navbar)

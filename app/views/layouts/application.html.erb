@@ -18,12 +18,12 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag :tailwind, "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body data-controller="scroll-to-section">
+  <body class="bg-white text-body font-sans" data-controller="scroll-to-section">
     <!-- Navbar -->
     <nav id="navbar" data-controller="navbar" class="bg-neutral-primary/50 backdrop-blur-md fixed w-full z-20 top-0 start-0 border-b border-default transition-transform duration-300">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -68,20 +68,7 @@
       <div id="smooth-content">
         <!-- Main Content -->
         <main>
-          <% if flash[:notice] %>
-            <div class="fixed top-20 inset-x-0 z-50 flex justify-center pointer-events-none">
-              <div class="pointer-events-auto bg-brand text-white px-6 py-3 rounded-base shadow-lg">
-                <%= flash[:notice] %>
-              </div>
-            </div>
-          <% end %>
-          <% if flash[:alert] %>
-            <div class="fixed top-20 inset-x-0 z-50 flex justify-center pointer-events-none">
-              <div class="pointer-events-auto bg-red-500 text-white px-6 py-3 rounded-base shadow-lg">
-                <%= flash[:alert] %>
-              </div>
-            </div>
-          <% end %>
+          <%= render "shared/toast" %>
           <%= yield %>
         </main>
       </div>

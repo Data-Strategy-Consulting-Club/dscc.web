@@ -1,8 +1,13 @@
 module Admin
   class SessionsController < ApplicationController
-    layout "admin"
+    layout :choose_layout
 
     before_action :redirect_if_authenticated, only: %i[new create]
+    before_action :check_rate_limit, only: %i[new create]
+
+    MAX_ATTEMPTS = 5
+    LOCKOUT_DURATION = 30.minutes
+    RATE_LIMIT_WINDOW = 15.minutes
 
     def new
     end
@@ -10,11 +15,15 @@ module Admin
     def create
       admin_creds = Rails.application.credentials.dig(:admin)
       if admin_creds &&
-          params[:username] == admin_creds[:username] &&
-          params[:password] == admin_creds[:password]
+          ActiveSupport::SecurityUtils.secure_compare(params[:username].to_s, admin_creds[:username].to_s) &&
+          ActiveSupport::SecurityUtils.secure_compare(params[:password].to_s, admin_creds[:password].to_s)
+        reset_session
         session[:admin] = true
+        session[:admin_login_time] = Time.current.iso8601
+        clear_failed_attempts
         redirect_to admin_content_path, notice: "Logged in successfully."
       else
+        record_failed_attempt
         flash.now[:alert] = "Invalid username or password."
         render :new, status: :unprocessable_entity
       end
@@ -27,8 +36,36 @@ module Admin
 
     private
 
+    def choose_layout
+      action_name == "new" || action_name == "create" ? "admin_login" : "admin"
+    end
+
     def redirect_if_authenticated
       redirect_to admin_content_path if session[:admin]
+    end
+
+    def check_rate_limit
+      ip = request.remote_ip
+      key = "admin_login_attempts:#{ip}"
+      attempts = Rails.cache.read(key).to_i
+
+      if attempts >= MAX_ATTEMPTS
+        flash[:alert] = "Too many failed attempts. Please try again later."
+        redirect_to admin_login_path
+      end
+    end
+
+    def record_failed_attempt
+      ip = request.remote_ip
+      key = "admin_login_attempts:#{ip}"
+      attempts = Rails.cache.read(key).to_i
+      Rails.cache.write(key, attempts + 1, expires_in: RATE_LIMIT_WINDOW)
+    end
+
+    def clear_failed_attempts
+      ip = request.remote_ip
+      key = "admin_login_attempts:#{ip}"
+      Rails.cache.delete(key)
     end
   end
 end
