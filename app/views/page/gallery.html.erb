@@ -1,35 +1,12 @@
 <% content_for(:title, "Gallery — DSCC") %>
 
-<div
-  data-controller="gallery-draggable"
-  data-gallery-draggable-target="canvas"
-  class="min-h-screen w-full bg-dotted-grid relative overflow-hidden"
->
-  <!-- Layer 2: Watermark (Centered behind pictures) -->
-  <div class="fixed inset-0 flex items-center justify-center select-none pointer-events-none z-10 px-4">
-    <div class="text-center">
-      <p class="text-3xl sm:text-5xl md:text-6xl font-bold tracking-wider text-neutral-400/35 uppercase mb-2 md:mb-3">
-        Welcome to
-      </p>
-      <h1 class="text-6xl sm:text-8xl md:text-9xl font-black tracking-tight text-brand/25">
-        DSCC
-      </h1>
-    </div>
+<div class="min-h-screen w-full bg-dotted-grid flex items-center justify-center select-none pointer-events-none px-4">
+  <div class="text-center">
+    <p class="text-3xl sm:text-5xl md:text-6xl font-bold tracking-wider text-neutral-400/40 uppercase mb-2 md:mb-3">
+      Welcome to
+    </p>
+    <h1 class="text-6xl sm:text-8xl md:text-9xl font-black tracking-tight text-brand/30">
+      DSCC
+    </h1>
   </div>
-
-  <!-- Layer 3: Pictures (Draggable on top of watermark) -->
-  <% if @gallery_images.present? %>
-    <div class="relative z-20 pt-24 pb-16 px-6 lg:px-16 min-h-screen">
-      <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <% @gallery_images.each do |record| %>
-          <div
-            data-gallery-draggable-target="item"
-            class="relative overflow-hidden rounded-base bg-white border border-default shadow-sm aspect-square flex items-center justify-center cursor-grab active:cursor-grabbing select-none touch-none"
-          >
-            <%= image_tag record.file, draggable: false, class: "w-full h-full object-cover pointer-events-none select-none" %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
 </div>
