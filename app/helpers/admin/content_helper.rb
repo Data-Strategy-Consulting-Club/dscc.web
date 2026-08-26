@@ -6,7 +6,7 @@ module Admin
     ].freeze
 
     def image_key?(key)
-      IMAGE_KEYS.include?(key) || key.ends_with?("_image") || key.match?(/_image_\d+\z/)
+      IMAGE_KEYS.include?(key) || key.ends_with?("_image") || key.match?(/_?image_\d+\z/) || key.start_with?("image_")
     end
 
     SHORT_KEYS = %w[

@@ -5,10 +5,10 @@
     </div>
   <% end %>
 
-  <% if record.section == "trusted_by" && record.key.starts_with?("image_") %>
+  <% if %w[trusted_by gallery].include?(record.section) && record.key.starts_with?("image_") %>
     <div class="flex items-center gap-4">
       <div class="flex-1">
-        <%= form.file_field "contents[#{record.id}][file]", accept: ".jpg,.jpeg,.png,.svg",
+        <%= form.file_field "contents[#{record.id}][file]", accept: ".jpg,.jpeg,.png,.svg,.webp",
             class: "pl-5 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" %>
       </div>
       <%= link_to "Remove", remove_image_admin_content_path(id: record.id),
@@ -42,7 +42,7 @@
 
   <%= form_with url: admin_content_path, method: :patch, local: true, html: { multipart: true, class: "space-y-8" } do |form| %>
     <% @sections.each do |section, records| %>
-      <details class="bg-white rounded-lg border border-gray-200 shadow-sm">
+      <details class="bg-white rounded-lg border border-gray-200 shadow-sm" data-controller="admin-details" data-admin-details-key-value="<%= section %>">
         <summary class="px-6 py-4 cursor-pointer hover:bg-gray-50 font-semibold text-lg capitalize">
           <%= section.tr("_", " ") %>
         </summary>
@@ -115,6 +115,13 @@
                 <% end %>
               <% end %>
             </div>
+          <% elsif %w[trusted_by gallery].include?(section) %>
+            <div id="<%= section %>_records" class="space-y-4">
+              <% records.each do |record| %>
+                <%= render "admin/content/image_row", record: record %>
+              <% end %>
+            </div>
+            <%= render "admin/content/section_footer", section: section, records: records %>
           <% else %>
             <% records.each do |record| %>
               <div class="border-b border-gray-100 pb-4 last:border-b-0 last:pb-0">
@@ -124,13 +131,6 @@
                 <%= content_field.call(form, record) %>
               </div>
             <% end %>
-          <% end %>
-          <% if section == "trusted_by" %>
-            <div class="pt-2">
-              <%= link_to "+ Add Image", add_image_admin_content_path,
-                  data: { turbo_method: :post },
-                  class: "text-sm text-blue-600 hover:text-blue-800 font-medium" %>
-            </div>
           <% end %>
         </div>
       </details>
