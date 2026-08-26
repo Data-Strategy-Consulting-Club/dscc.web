@@ -9,7 +9,7 @@ export default class extends Controller {
   connect() {
     gsap.registerPlugin(Draggable)
 
-    this.highestZ = 30
+    this.highestZ = 10
     const controller = this
 
     // Position each item absolutely so resizing or dragging one item NEVER moves others
@@ -22,7 +22,7 @@ export default class extends Controller {
       activeCursor: "grabbing",
       cancel: ".resize-handle",
       onPress() {
-        controller.highestZ += 1
+        controller.highestZ = Math.min(45, controller.highestZ + 1)
         this.target.style.zIndex = controller.highestZ
         controller.applyCustomBounds(this)
       },
@@ -98,7 +98,7 @@ export default class extends Controller {
       draggable.disable()
     }
 
-    this.highestZ += 1
+    this.highestZ = Math.min(45, this.highestZ + 1)
     item.style.zIndex = this.highestZ
 
     const clientX = e.clientX
