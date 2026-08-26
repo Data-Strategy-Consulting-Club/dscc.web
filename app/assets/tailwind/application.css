@@ -2,6 +2,16 @@
 @import "flowbite/src/themes/default";
 @plugin "flowbite/plugin";
 
+@theme {
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-heading: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+html, body {
+  font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
 .row,
 .section,
 section {
