@@ -2,6 +2,9 @@ class PageController < ApplicationController
   def index
   end
 
+  def gallery
+  end
+
   def contact
     name = params[:name]
     email = params[:email]

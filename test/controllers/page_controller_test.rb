@@ -5,4 +5,9 @@ class PageControllerTest < ActionDispatch::IntegrationTest
     get root_url
     assert_response :success
   end
+
+  test "should get gallery" do
+    get gallery_url
+    assert_response :success
+  end
 end

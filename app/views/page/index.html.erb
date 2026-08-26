@@ -49,29 +49,13 @@
   </div>
 
   <!-- Image -->
-  <div
-    class="
-      order-1 lg:order-2
-      w-full
-      max-w-[600px]
-      h-64
-      sm:h-80
-      lg:w-[600px]
-      lg:h-[400px]
-      flex
-      items-center
-      justify-center
-      bg-neutral-quaternary
-      rounded-base
-      flex-shrink-0
-      overflow-hidden
-    "
-  >
-    <% if (img = sc_image("who_we_are", "image", class: "w-full h-full object-cover")) %>
+  <%= link_to gallery_path,
+      class: "order-1 lg:order-2 w-full max-w-[600px] h-64 sm:h-80 lg:w-[600px] lg:h-[400px] flex items-center justify-center bg-neutral-quaternary rounded-base flex-shrink-0 overflow-hidden shadow-sm transition-all duration-300 transform hover:scale-[1.03] hover:shadow-lg active:scale-95 cursor-pointer block group" do %>
+    <% if (img = sc_image("who_we_are", "image", class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105")) %>
       <%= img %>
     <% else %>
       <svg
-        class="w-12 h-12 text-fg-disabled animate-pulse"
+        class="w-12 h-12 text-fg-disabled animate-pulse transition-transform duration-300 group-hover:scale-110"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -86,7 +70,7 @@
         />
       </svg>
     <% end %>
-  </div>
+  <% end %>
 </section>
 
 <section

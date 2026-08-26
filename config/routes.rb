@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
+  get "gallery", to: "page#gallery"
   post "contact", to: "page#contact"
 
   get "admin", to: redirect("/admin/login")
