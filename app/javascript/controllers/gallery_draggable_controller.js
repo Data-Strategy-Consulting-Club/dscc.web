@@ -121,9 +121,9 @@ export default class extends Controller {
     // 3. Measure Strict Central Watermark Exclusion Zone
     const exclusionZone = this.computeExclusionZone(canvasRect, canvasWidth, canvasHeight, isMobile, isTablet)
 
-    // 4. Calculate Sizing for each photo
+    // 4. Calculate Sizing for each photo (Visual Size Normalization)
     const photoSizes = items.map((item, idx) => {
-      return this.computeItemSize(item, idx, vw, isMobile, isTablet, isDesktop, canvasWidth)
+      return this.computeItemSize(item, idx, vw, vh, isMobile, isTablet, isDesktop, canvasWidth, canvasHeight)
     })
 
     // 5. Space-Aware Placement Algorithm (Multi-zone candidate sampling & collision evaluation)
@@ -152,6 +152,7 @@ export default class extends Controller {
       item.style.width = `${size.width}px`
       item.style.height = `${size.height}px`
       item.style.zIndex = placement.zIndex
+      item.style.opacity = "1"
 
       if (!this.isInitialized && !isResize) {
         // Initial organic entrance animation
@@ -159,16 +160,14 @@ export default class extends Controller {
           x: placement.x,
           y: placement.y,
           rotation: placement.rotation,
-          scale: 0.85,
-          opacity: 0
+          scale: 0.94
         })
 
         gsap.to(item, {
           scale: 1,
-          opacity: 1,
-          duration: 0.65,
-          delay: 0.05 + index * 0.035,
-          ease: "back.out(1.3)"
+          duration: 0.35,
+          delay: index * 0.02,
+          ease: "power2.out"
         })
       } else {
         // Smooth transition on resize
@@ -176,7 +175,7 @@ export default class extends Controller {
           x: placement.x,
           y: placement.y,
           rotation: placement.rotation,
-          duration: 0.5,
+          duration: 0.4,
           ease: "power2.out"
         })
       }
@@ -220,45 +219,104 @@ export default class extends Controller {
     }
   }
 
-  computeItemSize(item, idx, vw, isMobile, isTablet, isDesktop, canvasWidth) {
-    // 3 size tiers: Small, Medium, Large for visual depth and rhythm
-    const tierCycle = idx % 3
-    let baseWidth
-
-    if (isDesktop) {
-      if (tierCycle === 0) baseWidth = 230 + (idx * 17) % 25 // Small: 230-255
-      else if (tierCycle === 1) baseWidth = 275 + (idx * 23) % 25 // Medium: 275-300
-      else baseWidth = 320 + (idx * 31) % 30 // Large: 320-350
-    } else if (isTablet) {
-      if (tierCycle === 0) baseWidth = 170 + (idx * 13) % 20 // 170-190
-      else if (tierCycle === 1) baseWidth = 200 + (idx * 17) % 20 // 200-220
-      else baseWidth = 235 + (idx * 21) % 25 // 235-260
-    } else {
-      // Mobile: compact yet readable sizing, fits within narrow screen
-      const maxMobileW = Math.min(155, Math.floor(canvasWidth * 0.40))
-      if (tierCycle === 0) baseWidth = Math.min(115 + (idx * 7) % 12, maxMobileW)
-      else if (tierCycle === 1) baseWidth = Math.min(128 + (idx * 9) % 12, maxMobileW)
-      else baseWidth = Math.min(142 + (idx * 11) % 13, maxMobileW)
-    }
-
-    // Aspect ratio: determine natural or pleasing ratio (1.2 to 1.4)
-    let aspectRatio = 1.3
+  computeItemSize(item, idx, vw, vh, isMobile, isTablet, isDesktop, canvasWidth, canvasHeight) {
+    // 1. Determine Natural Aspect Ratio & Orientation
+    let aspectRatio = 1.33
     const img = item.querySelector("img")
     if (img && img.naturalWidth && img.naturalHeight) {
       aspectRatio = img.naturalWidth / img.naturalHeight
-      aspectRatio = Math.max(0.75, Math.min(1.5, aspectRatio))
     } else {
-      const ratios = [1.333, 1.25, 1.38, 1.18, 1.35]
-      aspectRatio = ratios[idx % ratios.length]
+      const fallbackRatios = [1.333, 1.5, 0.563, 1.0, 1.333, 0.563]
+      aspectRatio = fallbackRatios[idx % fallbackRatios.length]
     }
 
-    const itemWidth = Math.round(baseWidth)
-    const itemHeight = Math.round(baseWidth / aspectRatio)
+    // Clamp extreme aspect ratios to keep visual balance
+    const clampedRatio = Math.max(0.52, Math.min(1.85, aspectRatio))
+    const isPortrait = clampedRatio < 0.85
+    const isSquare = clampedRatio >= 0.85 && clampedRatio <= 1.18
+    const isLandscape = clampedRatio > 1.18
+
+    // 2. Responsive Visual Area Tiers (Small, Medium, Large)
+    // Every orientation targets a comparable surface area so no photo dominates
+    const tierCycle = idx % 3
+    let targetVisualArea
+    let maxAllowedHeight
+    let maxAllowedWidth
+    let minAllowedWidth
+    let minAllowedHeight
+
+    if (isDesktop) {
+      // Desktop Target Areas (px²)
+      if (tierCycle === 0) targetVisualArea = 48000 + (idx * 2100) % 6000 // Small: ~48k - 54k
+      else if (tierCycle === 1) targetVisualArea = 58000 + (idx * 2700) % 7000 // Medium: ~58k - 65k
+      else targetVisualArea = 68000 + (idx * 3300) % 8000 // Large: ~68k - 76k
+
+      maxAllowedHeight = isPortrait ? 275 : 240
+      maxAllowedWidth = isLandscape ? 330 : 250
+      minAllowedWidth = 120
+      minAllowedHeight = 120
+    } else if (isTablet) {
+      // Tablet Target Areas (px²)
+      if (tierCycle === 0) targetVisualArea = 27000 + (idx * 1500) % 4000 // Small: ~27k - 31k
+      else if (tierCycle === 1) targetVisualArea = 33000 + (idx * 1800) % 5000 // Medium: ~33k - 38k
+      else targetVisualArea = 40000 + (idx * 2200) % 6000 // Large: ~40k - 46k
+
+      maxAllowedHeight = isPortrait ? 220 : 190
+      maxAllowedWidth = isLandscape ? 250 : 190
+      minAllowedWidth = 100
+      minAllowedHeight = 100
+    } else {
+      // Mobile Target Areas (px²)
+      if (tierCycle === 0) targetVisualArea = 11000 + (idx * 800) % 2000 // Small: ~11k - 13k
+      else if (tierCycle === 1) targetVisualArea = 13500 + (idx * 1000) % 2500 // Medium: ~13.5k - 16k
+      else targetVisualArea = 16500 + (idx * 1200) % 3000 // Large: ~16.5k - 19.5k
+
+      maxAllowedHeight = isPortrait ? 150 : 120
+      maxAllowedWidth = isLandscape ? 160 : 125
+      minAllowedWidth = 70
+      minAllowedHeight = 70
+    }
+
+    // 3. Visual Area to Dimension Formula:
+    // w = sqrt(Area * ratio), h = sqrt(Area / ratio)
+    let calcWidth = Math.sqrt(targetVisualArea * clampedRatio)
+    let calcHeight = Math.sqrt(targetVisualArea / clampedRatio)
+
+    // 4. Orientation & Viewport Constraint Normalization
+    // Prevent portrait photos from stretching excessively tall
+    if (isPortrait && calcHeight > maxAllowedHeight) {
+      const scaleDown = maxAllowedHeight / calcHeight
+      calcHeight = maxAllowedHeight
+      calcWidth = calcWidth * scaleDown
+    }
+
+    // Prevent landscape photos from stretching excessively wide
+    if (isLandscape && calcWidth > maxAllowedWidth) {
+      const scaleDown = maxAllowedWidth / calcWidth
+      calcWidth = maxAllowedWidth
+      calcHeight = calcHeight * scaleDown
+    }
+
+    // Square normalization
+    if (isSquare) {
+      const maxSquareSide = isDesktop ? 235 : (isTablet ? 180 : 120)
+      if (calcWidth > maxSquareSide) {
+        calcWidth = maxSquareSide
+        calcHeight = maxSquareSide / clampedRatio
+      }
+    }
+
+    // Final Clamping to ensure visibility and prevent overflow
+    const finalWidth = Math.max(minAllowedWidth, Math.round(calcWidth))
+    const finalHeight = Math.max(minAllowedHeight, Math.round(calcHeight))
 
     return {
-      width: itemWidth,
-      height: itemHeight,
-      area: itemWidth * itemHeight
+      width: finalWidth,
+      height: finalHeight,
+      area: finalWidth * finalHeight,
+      aspectRatio: clampedRatio,
+      isPortrait: isPortrait,
+      isLandscape: isLandscape
     }
   }
 
