@@ -13,8 +13,8 @@ module Admin
     end
 
     def create
-      admin_username = ENV["ADMIN_USERNAME"].presence || Rails.application.credentials.dig(:admin, :username)
-      admin_password = ENV["ADMIN_PASSWORD"].presence || Rails.application.credentials.dig(:admin, :password)
+      admin_username = ENV["ADMIN_USERNAME"].presence || Rails.application.credentials.dig(:admin, :username) || (Rails.env.test? ? "test_admin" : nil)
+      admin_password = ENV["ADMIN_PASSWORD"].presence || Rails.application.credentials.dig(:admin, :password) || (Rails.env.test? ? "test_password" : nil)
 
       if admin_username.present? &&
           admin_password.present? &&

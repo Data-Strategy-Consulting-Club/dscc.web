@@ -2,8 +2,9 @@ require "test_helper"
 
 class Admin::ContentControllerTest < ActionDispatch::IntegrationTest
   setup do
-    admin_creds = Rails.application.credentials.dig(:admin)
-    post admin_login_url, params: { username: admin_creds[:username], password: admin_creds[:password] }
+    admin_username = ENV["ADMIN_USERNAME"].presence || Rails.application.credentials.dig(:admin, :username) || "test_admin"
+    admin_password = ENV["ADMIN_PASSWORD"].presence || Rails.application.credentials.dig(:admin, :password) || "test_password"
+    post admin_login_url, params: { username: admin_username, password: admin_password }
   end
 
   test "should get show when authenticated" do

@@ -18,13 +18,13 @@ bin/rails server     # web only (no CSS watcher)
 | Run system tests | `bin/rails test:system` |
 | Run a single test file | `bin/rails test test/controllers/page_controller_test.rb` |
 | Lint | `bin/rubocop` |
-| Security audits | `bin/brakeman --no-pager` · `bin/bundler-audit` · `bin/importmap audit` |
+| Security audits | `bin/brakeman --no-pager` · `bin/bundler-audit` · `npm audit --omit=dev` |
 | Full local CI | `bin/ci` (setup → rubocop → security audits → tests → seed replant) |
 | Dev server | `bin/dev` (foreman: web + CSS) |
 | Console | `bin/rails console` |
 | Generate | `bin/rails generate` (standard Rails generators; RuboCop autocorrect after generate is optional — see `config/environments/development.rb:77`) |
 
-CI runs in order: `brakeman` → `bundler-audit` → `importmap audit` → `rubocop` → `test` → `system-test` (GitHub Actions, parallel jobs).
+CI runs in order: `brakeman` → `bundler-audit` → `npm audit` → `rubocop` → `test` → `system-test` (GitHub Actions, parallel jobs).
 
 ## Architecture
 
