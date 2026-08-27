@@ -3,39 +3,60 @@
 <div
   data-controller="gallery-draggable"
   data-gallery-draggable-target="canvas"
-  class="min-h-screen w-full bg-dotted-grid relative overflow-hidden"
+  class="fixed inset-0 w-screen h-screen bg-dotted-grid overflow-hidden select-none"
+  style="width: 100vw; height: 100vh; max-width: 100vw; max-height: 100vh;"
 >
-  <!-- Layer 2: Watermark (Centered behind pictures) -->
-  <div class="fixed inset-0 flex items-center justify-center select-none pointer-events-none z-10 px-4">
-    <div class="text-center">
-      <p class="text-3xl sm:text-5xl md:text-6xl font-bold tracking-wider text-neutral-400/35 uppercase mb-2 md:mb-3">
+  <!-- Layer 1: Watermark (Centered Protected Exclusion Zone) -->
+  <div
+    data-gallery-draggable-target="watermark"
+    class="absolute inset-0 flex items-center justify-center select-none pointer-events-none z-10 px-4"
+  >
+    <div
+      data-gallery-draggable-target="watermarkText"
+      class="text-center py-6 px-6 sm:px-10 rounded-3xl"
+    >
+      <p class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-widest text-neutral-400/40 uppercase mb-1 sm:mb-2 md:mb-3 select-none">
         Welcome to
       </p>
-      <h1 class="text-6xl sm:text-8xl md:text-9xl font-black tracking-tight text-brand/25">
+      <h1 class="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-black tracking-tight text-neutral-900/20 select-none">
         DSCC
       </h1>
     </div>
   </div>
 
-  <!-- Layer 3: Pictures (Draggable & Resizable on top of watermark) -->
+  <!-- Layer 2: Pictures (Dynamic Responsive Random Collage) -->
   <% if @gallery_images.present? %>
-    <div class="relative z-20 pt-24 pb-16 px-6 lg:px-16 min-h-screen">
-      <div data-gallery-draggable-target="grid" class="max-w-7xl mx-auto flex flex-wrap items-start justify-center gap-6 relative min-h-[70vh]">
-        <% @gallery_images.each do |record| %>
-          <div
-            data-gallery-draggable-target="item"
-            class="group relative rounded-base bg-white border border-default shadow-sm flex items-center justify-center cursor-grab active:cursor-grabbing select-none touch-none w-72"
-          >
-            <%= image_tag record.file, draggable: false, class: "w-full h-auto object-contain pointer-events-none select-none rounded-base block" %>
+    <div
+      data-gallery-draggable-target="container"
+      class="absolute inset-0 z-20 w-full h-full overflow-hidden"
+    >
+      <% @gallery_images.each do |record| %>
+        <div
+          data-gallery-draggable-target="item"
+          class="photo-card absolute rounded-2xl shadow-md flex items-center justify-center cursor-grab active:cursor-grabbing select-none touch-none hover:shadow-xl transition-shadow group overflow-hidden bg-transparent"
+          style="will-change: transform, width, height; opacity: 0;"
+        >
+          <%= image_tag record.file,
+                        draggable: false,
+                        class: "w-full h-full object-cover pointer-events-none select-none rounded-2xl block",
+                        loading: "eager",
+                        alt: "DSCC Gallery Photo" %>
 
-            <!-- Invisible Corner Resize Zones on the picture itself -->
-            <div class="resize-handle se-handle absolute bottom-0 right-0 w-8 h-8 cursor-nwse-resize z-30 touch-none"></div>
-            <div class="resize-handle sw-handle absolute bottom-0 left-0 w-8 h-8 cursor-nesw-resize z-30 touch-none"></div>
-            <div class="resize-handle ne-handle absolute top-0 right-0 w-8 h-8 cursor-nesw-resize z-30 touch-none"></div>
-            <div class="resize-handle nw-handle absolute top-0 left-0 w-8 h-8 cursor-nwse-resize z-30 touch-none"></div>
+          <!-- Corner Resize Handles -->
+          <div class="resize-handle se-handle absolute bottom-0 right-0 w-7 h-7 cursor-nwse-resize z-30 touch-none flex items-end justify-end p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div class="w-2 h-2 rounded-full bg-neutral-400/70 shadow-sm"></div>
           </div>
-        <% end %>
-      </div>
+          <div class="resize-handle sw-handle absolute bottom-0 left-0 w-7 h-7 cursor-nesw-resize z-30 touch-none flex items-end justify-start p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div class="w-2 h-2 rounded-full bg-neutral-400/70 shadow-sm"></div>
+          </div>
+          <div class="resize-handle ne-handle absolute top-0 right-0 w-7 h-7 cursor-nesw-resize z-30 touch-none flex items-start justify-end p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div class="w-2 h-2 rounded-full bg-neutral-400/70 shadow-sm"></div>
+          </div>
+          <div class="resize-handle nw-handle absolute top-0 left-0 w-7 h-7 cursor-nwse-resize z-30 touch-none flex items-start justify-start p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <div class="w-2 h-2 rounded-full bg-neutral-400/70 shadow-sm"></div>
+          </div>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>
