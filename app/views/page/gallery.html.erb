@@ -15,10 +15,10 @@
       data-gallery-draggable-target="watermarkText"
       class="text-center py-6 px-6 sm:px-10 rounded-3xl"
     >
-      <p class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-widest text-neutral-400/40 uppercase mb-1 sm:mb-2 md:mb-3 select-none">
+      <p class="text-1xl sm:text-4xl md:text-4xl lg:text-4xl font-extrabold tracking-widest text-[#9b000a]/20 uppercase mb-1 sm:mb-2 md:mb-3 select-none">
         Welcome to
       </p>
-      <h1 class="text-6xl sm:text-8xl md:text-9xl lg:text-[10rem] font-black tracking-tight text-neutral-900/20 select-none">
+      <h1 class="text-5xl sm:text-8xl md:text-9xl lg:text-[9rem] font-black tracking-tight text-[#344d75]/40 select-none">
         DSCC
       </h1>
     </div>
@@ -34,7 +34,10 @@
         <div
           data-gallery-draggable-target="item"
           class="photo-card absolute rounded-2xl shadow-md flex items-center justify-center cursor-grab active:cursor-grabbing select-none touch-none hover:shadow-xl transition-shadow group overflow-hidden bg-transparent"
-          style="will-change: transform, width, height;"
+          style="will-change: transform, width, height; opacity: 0;"
+          <% if record.file.attached? && record.file.blob.metadata.present? && record.file.blob.metadata["width"].to_i > 0 && record.file.blob.metadata["height"].to_i > 0 %>
+            data-aspect-ratio="<%= (record.file.blob.metadata["width"].to_f / record.file.blob.metadata["height"].to_f).round(4) %>"
+          <% end %>
         >
           <%= image_tag record.file,
                         draggable: false,

@@ -6,13 +6,15 @@ import { Draggable } from "gsap/Draggable"
 export default class extends Controller {
   static targets = ["canvas", "container", "watermark", "watermarkText", "item"]
 
-  connect() {
+  async connect() {
     gsap.registerPlugin(Draggable)
 
     this.prevHtmlOverflow = document.documentElement.style.overflow
     this.prevBodyOverflow = document.body.style.overflow
     document.documentElement.style.overflow = "hidden"
     document.body.style.overflow = "hidden"
+
+    window.scrollTo(0, 0)
 
     this.highestZ = 20
     this.draggables = []
@@ -25,19 +27,14 @@ export default class extends Controller {
     window.addEventListener("resize", this.debouncedResize)
     window.addEventListener("orientationchange", this.debouncedResize)
 
-    // Wait for DOM & styles/fonts ready
-    this.initLayoutTimeout = setTimeout(() => {
-      this.calculateAndApplyLayout(false)
-      this.setupDraggables()
-      this.setupResizeHandles()
-    }, 40)
+    // Wait for fonts & images ready, then calculate layout and activate interactions
+    await this.prepareAndLayout()
   }
 
   disconnect() {
     document.documentElement.style.overflow = this.prevHtmlOverflow || ""
     document.body.style.overflow = this.prevBodyOverflow || ""
 
-    clearTimeout(this.initLayoutTimeout)
     if (this.resizeTimeout) clearTimeout(this.resizeTimeout)
     window.removeEventListener("resize", this.debouncedResize)
     window.removeEventListener("orientationchange", this.debouncedResize)
@@ -46,6 +43,42 @@ export default class extends Controller {
       this.draggables.forEach((d) => d.kill())
       this.draggables = []
     }
+  }
+
+  async prepareAndLayout() {
+    if (!this.hasItemTarget || this.itemTargets.length === 0) return
+
+    // 1. Wait for web fonts (e.g. Poppins font for the watermark)
+    if (document.fonts && document.fonts.ready) {
+      try {
+        await document.fonts.ready
+      } catch (e) {
+        // Continue even if fonts reject
+      }
+    }
+
+    // 2. Pre-decode images or wait for loaded state (with a quick 120ms timeout ceiling)
+    const imageLoadPromises = this.itemTargets.map((item) => {
+      const img = item.querySelector("img")
+      if (!img) return Promise.resolve()
+      if (img.complete && img.naturalWidth > 0) return Promise.resolve()
+      if (typeof img.decode === "function") {
+        return img.decode().catch(() => {})
+      }
+      return new Promise((resolve) => {
+        img.addEventListener("load", resolve, { once: true })
+        img.addEventListener("error", resolve, { once: true })
+      })
+    })
+
+    await Promise.race([
+      Promise.all(imageLoadPromises),
+      new Promise((resolve) => setTimeout(resolve, 120))
+    ])
+
+    this.calculateAndApplyLayout(false)
+    this.setupDraggables()
+    this.setupResizeHandles()
   }
 
   debounce(func, wait) {
@@ -90,28 +123,13 @@ export default class extends Controller {
     const isTablet = vw >= 768 && vw < 1024
     const isDesktop = vw >= 1024
 
-    // 1. Dynamic Canvas Height: Prioritize fitting within viewport, only expanding slightly if needed for high photo density
-    let requiredMinHeight
-    if (isMobile) {
-      // Prioritize 100vh viewport; only expand slightly if > 6 photos
-      const extraHeight = items.length > 6 ? Math.min(vh * 0.35, (items.length - 6) * 36) : 0
-      requiredMinHeight = Math.max(vh, vh + extraHeight)
-    } else if (isTablet) {
-      const extraHeight = items.length > 10 ? (items.length - 10) * 30 : 0
-      requiredMinHeight = Math.max(vh, 720 + extraHeight)
-    } else {
-      requiredMinHeight = Math.max(vh, 700)
-    }
-
-    canvas.style.minHeight = `${requiredMinHeight}px`
-    const canvasRect = canvas.getBoundingClientRect()
-    const canvasWidth = canvas.clientWidth || vw
-    const canvasHeight = Math.max(requiredMinHeight, canvas.clientHeight || vh)
+    const canvasWidth = vw
+    const canvasHeight = vh
 
     // 2. Usable Boundaries (padding / margins)
     const topNavbarOffset = isMobile ? 64 : 76
-    const sidePadding = isMobile ? 8 : (isTablet ? 20 : 32)
-    const bottomPadding = isMobile ? 16 : (isTablet ? 28 : 40)
+    const sidePadding = isMobile ? 8 : (isTablet ? 18 : 28)
+    const bottomPadding = isMobile ? 12 : (isTablet ? 20 : 28)
 
     const minX = sidePadding
     const maxX = canvasWidth - sidePadding
@@ -119,7 +137,7 @@ export default class extends Controller {
     const maxY = canvasHeight - bottomPadding
 
     // 3. Measure Strict Central Watermark Exclusion Zone
-    const exclusionZone = this.computeExclusionZone(canvasRect, canvasWidth, canvasHeight, isMobile, isTablet)
+    const exclusionZone = this.computeExclusionZone(canvas, canvasWidth, canvasHeight, isMobile, isTablet)
 
     // 4. Calculate Sizing for each photo (Visual Size Normalization)
     const photoSizes = items.map((item, idx) => {
@@ -152,7 +170,6 @@ export default class extends Controller {
       item.style.width = `${size.width}px`
       item.style.height = `${size.height}px`
       item.style.zIndex = placement.zIndex
-      item.style.opacity = "1"
 
       if (!this.isInitialized && !isResize) {
         // Initial organic entrance animation
@@ -160,13 +177,15 @@ export default class extends Controller {
           x: placement.x,
           y: placement.y,
           rotation: placement.rotation,
-          scale: 0.94
+          scale: 0.92,
+          opacity: 0
         })
 
         gsap.to(item, {
           scale: 1,
-          duration: 0.35,
-          delay: index * 0.02,
+          opacity: 1,
+          duration: 0.4,
+          delay: index * 0.025,
           ease: "power2.out"
         })
       } else {
@@ -175,6 +194,7 @@ export default class extends Controller {
           x: placement.x,
           y: placement.y,
           rotation: placement.rotation,
+          opacity: 1,
           duration: 0.4,
           ease: "power2.out"
         })
@@ -184,7 +204,7 @@ export default class extends Controller {
     this.isInitialized = true
   }
 
-  computeExclusionZone(canvasRect, canvasWidth, canvasHeight, isMobile, isTablet) {
+  computeExclusionZone(canvas, canvasWidth, canvasHeight, isMobile, isTablet) {
     let wmLeft, wmTop, wmWidth, wmHeight
 
     const watermarkEl = this.hasWatermarkTextTarget
@@ -193,8 +213,8 @@ export default class extends Controller {
 
     if (watermarkEl) {
       const wmRect = watermarkEl.getBoundingClientRect()
-      wmLeft = wmRect.left - canvasRect.left
-      wmTop = wmRect.top - canvasRect.top
+      wmLeft = wmRect.left
+      wmTop = wmRect.top
       wmWidth = wmRect.width
       wmHeight = wmRect.height
     } else {
@@ -206,14 +226,14 @@ export default class extends Controller {
     }
 
     // Safety margin around watermark
-    const clearanceX = isMobile ? 16 : (isTablet ? 28 : 42)
-    const clearanceY = isMobile ? 14 : (isTablet ? 22 : 32)
+    const clearanceX = isMobile ? 12 : (isTablet ? 22 : 32)
+    const clearanceY = isMobile ? 10 : (isTablet ? 16 : 24)
 
     return {
       left: Math.max(0, wmLeft - clearanceX),
       top: Math.max(56, wmTop - clearanceY),
       right: Math.min(canvasWidth, wmLeft + wmWidth + clearanceX),
-      bottom: wmTop + wmHeight + clearanceY,
+      bottom: Math.min(canvasHeight, wmTop + wmHeight + clearanceY),
       width: wmWidth + clearanceX * 2,
       height: wmHeight + clearanceY * 2
     }
@@ -221,11 +241,21 @@ export default class extends Controller {
 
   computeItemSize(item, idx, vw, vh, isMobile, isTablet, isDesktop, canvasWidth, canvasHeight) {
     // 1. Determine Natural Aspect Ratio & Orientation
-    let aspectRatio = 1.33
+    let aspectRatio = null
+
+    if (item.dataset.aspectRatio) {
+      const parsed = parseFloat(item.dataset.aspectRatio)
+      if (!isNaN(parsed) && parsed > 0) {
+        aspectRatio = parsed
+      }
+    }
+
     const img = item.querySelector("img")
-    if (img && img.naturalWidth && img.naturalHeight) {
+    if (!aspectRatio && img && img.naturalWidth && img.naturalHeight) {
       aspectRatio = img.naturalWidth / img.naturalHeight
-    } else {
+    }
+
+    if (!aspectRatio) {
       const fallbackRatios = [1.333, 1.5, 0.563, 1.0, 1.333, 0.563]
       aspectRatio = fallbackRatios[idx % fallbackRatios.length]
     }
