@@ -6,7 +6,7 @@ The official web platform for the **Data Strategy & Consulting Club (DSCC)**. Bu
 
 ---
 
-## 🌟 Features & Architecture
+## Features & Architecture
 
 ### 1. Public Portal
 - **Interactive Landing Page**: Modern, responsive layout with dynamic overview sections, animated Vanta 3D topology background, service descriptions, projects showcase, and client/partner endorsements.
@@ -20,7 +20,7 @@ The official web platform for the **Data Strategy & Consulting Club (DSCC)**. Bu
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 - **Backend**: Ruby 4.0.5, Ruby on Rails 8.1.3
 - **Database & Storage**: SQLite 3 with Solid Cache, Solid Queue (background jobs), and Solid Cable (WebSockets)
@@ -31,7 +31,7 @@ The official web platform for the **Data Strategy & Consulting Club (DSCC)**. Bu
 
 ---
 
-## 💻 Local Development Setup
+## Local Development Setup
 
 ### Prerequisites
 - **Ruby**: 4.0.5 (managed via `mise` or `rbenv` / `asdf`)
@@ -67,7 +67,7 @@ The official web platform for the **Data Strategy & Consulting Club (DSCC)**. Bu
 
 ---
 
-## 🚀 Deployment Guide (Railway)
+## Deployment Guide (Railway)
 
 This application includes a production-ready multi-stage `Dockerfile` and automated entrypoint script configured for platforms like **Railway**.
 
@@ -104,7 +104,7 @@ To populate the default website copy and initial layout:
 
 ---
 
-## ⚙️ Environment Variables Reference
+## Environment Variables Reference
 
 | Variable Name | Required | Purpose | How to Find / Generate Value |
 |---|:---:|---|---|
@@ -118,7 +118,7 @@ To populate the default website copy and initial layout:
 
 ---
 
-## 🔐 Security & Best Practices
+## Security & Best Practices
 
 - **Master Key Security**: `config/master.key` and all `.env*` files are strictly ignored by `.gitignore` and must never be pushed to version control.
 - **Rate Limiting**: The `/admin/login` endpoint includes rate limiting to prevent brute-force attacks.
@@ -126,6 +126,6 @@ To populate the default website copy and initial layout:
 
 ---
 
-## 📄 License
+## License
 
 This project is maintained by the **Data Strategy & Consulting Club**. All rights reserved.
