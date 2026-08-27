@@ -35,6 +35,9 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential git libvips libyaml-dev nodejs npm pkg-config && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
+# Install Bun for jsbundling
+COPY --from=docker.io/oven/bun:1 /usr/local/bin/bun /usr/local/bin/bun
+
 # Install application gems
 COPY vendor/* ./vendor/
 COPY Gemfile Gemfile.lock ./
