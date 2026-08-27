@@ -13,10 +13,13 @@ module Admin
     end
 
     def create
-      admin_creds = Rails.application.credentials.dig(:admin)
-      if admin_creds &&
-          ActiveSupport::SecurityUtils.secure_compare(params[:username].to_s, admin_creds[:username].to_s) &&
-          ActiveSupport::SecurityUtils.secure_compare(params[:password].to_s, admin_creds[:password].to_s)
+      admin_username = ENV["ADMIN_USERNAME"].presence || Rails.application.credentials.dig(:admin, :username)
+      admin_password = ENV["ADMIN_PASSWORD"].presence || Rails.application.credentials.dig(:admin, :password)
+
+      if admin_username.present? &&
+          admin_password.present? &&
+          ActiveSupport::SecurityUtils.secure_compare(params[:username].to_s, admin_username.to_s) &&
+          ActiveSupport::SecurityUtils.secure_compare(params[:password].to_s, admin_password.to_s)
         reset_session
         session[:admin] = true
         session[:admin_login_time] = Time.current.iso8601
