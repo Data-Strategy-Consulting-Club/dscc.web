@@ -8,7 +8,6 @@ module Admin
     ALLOWED_CONTENT_SECTIONS = %w[navbar overview who_we_are our_services three_reals trusted_by gallery contact_us].freeze
     ALLOWED_FILE_TYPES = %w[image/jpeg image/png image/gif image/webp image/svg+xml].freeze
     MAX_FILE_SIZE = 10.megabytes
-    MAX_GALLERY_IMAGES = 20
 
     def show
       groups = SiteContent.ordered.with_attached_file_and_variants.group_by(&:section)
@@ -35,17 +34,6 @@ module Admin
       section = params[:section].presence || "trusted_by"
       unless %w[trusted_by gallery].include?(section)
         redirect_to admin_content_path, alert: "Invalid section." and return
-      end
-
-      if section == "gallery" && SiteContent.by_section("gallery").count >= MAX_GALLERY_IMAGES
-        respond_to do |format|
-          format.turbo_stream do
-            flash.now[:alert] = "Maximum #{MAX_GALLERY_IMAGES} images allowed in gallery."
-            render turbo_stream: turbo_stream.append("toast-container", partial: "shared/toast")
-          end
-          format.html { redirect_to admin_content_path, alert: "Maximum #{MAX_GALLERY_IMAGES} images allowed in gallery." }
-        end
-        return
       end
 
       record = SiteContent.create!(section: section, key: next_image_key(section), content: "")
