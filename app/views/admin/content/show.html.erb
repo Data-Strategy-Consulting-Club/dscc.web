@@ -53,12 +53,12 @@
             <% records.each do |record| %>
               <% row_prefix = rows.keys.find { |p| record.key.start_with?("#{p}_image_") } %>
               <% if row_prefix && row_prefix != current_row %>
+                <h4 class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide <%= current_row.nil? ? 'pt-2' : 'pt-6' %> mb-2.5 sm:mb-3"><%= rows[row_prefix] %></h4>
                 <% current_row = row_prefix %>
-                <h4 class="text-xs sm:text-sm font-semibold text-gray-500 uppercase tracking-wide pt-4 -mb-2"><%= rows[row_prefix] %></h4>
               <% end %>
               <div class="border-b border-gray-100 pb-4 last:border-b-0 last:pb-0">
                 <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-                  <%= record.key.humanize %>
+                  <%= admin_content_label(record) %>
                 </label>
                 <%= content_field.call(form, record) %>
               </div>
@@ -126,7 +126,7 @@
             <% records.each do |record| %>
               <div class="border-b border-gray-100 pb-4 last:border-b-0 last:pb-0">
                 <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
-                  <%= record.key.humanize %>
+                  <%= admin_content_label(record) %>
                 </label>
                 <%= content_field.call(form, record) %>
               </div>
