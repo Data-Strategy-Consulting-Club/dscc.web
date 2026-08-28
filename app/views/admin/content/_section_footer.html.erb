@@ -2,18 +2,18 @@
   <% if section == "trusted_by" %>
     <%= link_to "+ Add Image", add_image_admin_content_path(section: "trusted_by"),
         data: { turbo_method: :post },
-        class: "text-sm text-blue-600 hover:text-blue-800 font-medium" %>
+        class: "text-xs sm:text-sm text-blue-600 hover:text-blue-800 font-medium" %>
   <% elsif section == "gallery" %>
     <div class="flex items-center justify-between">
-      <span class="text-xs text-gray-500">
+      <span class="text-[11px] sm:text-xs text-gray-500">
         <%= records.count %> / 20 images
       </span>
       <% if records.count < 20 %>
         <%= link_to "+ Add Image", add_image_admin_content_path(section: "gallery"),
             data: { turbo_method: :post },
-            class: "text-sm text-blue-600 hover:text-blue-800 font-medium" %>
+            class: "text-xs sm:text-sm text-blue-600 hover:text-blue-800 font-medium" %>
       <% else %>
-        <span class="text-xs font-medium text-amber-600 bg-amber-50 px-2 py-1 rounded">Maximum 20 images reached</span>
+        <span class="text-[11px] sm:text-xs font-medium text-amber-600 bg-amber-50 px-2 py-1 rounded">Maximum 20 images reached</span>
       <% end %>
     </div>
   <% end %>

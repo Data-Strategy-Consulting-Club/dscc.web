@@ -17,12 +17,12 @@
            pointer-events-none"
   ></div>
   <div class="flex flex-col lg:items-start lg:text-start lg:mt-30 lg:mr-30">
-    <h1 id="overview" class="mb-6 text-4xl font-bold tracking-tight leading-tight text-heading md:text-5xl lg:text-6xl"><%= sc("overview", "h1") %></h1>
-    <p class="mb-6 text-lg font-normal text-body lg:text-xl"><%= sc("overview", "tagline") %></p>
-    <a href="#contact" class="inline-block self-center lg:self-start text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-base px-5 py-3 focus:outline-none"><%= sc("navbar", "contact_button") %></a>
+    <h1 id="overview" class="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-heading"><%= sc("overview", "h1") %></h1>
+    <p class="mb-5 sm:mb-6 text-sm sm:text-base md:text-lg lg:text-xl font-normal text-body"><%= sc("overview", "tagline") %></p>
+    <a href="#contact" class="inline-block self-center lg:self-start text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-sm sm:text-base px-4 py-2.5 sm:px-5 sm:py-3 focus:outline-none"><%= sc("navbar", "contact_button") %></a>
   </div>
   <div class="lg:w-100 mt-10">
-    <p class="opacity-40 lg:opacity-100 text-start text-body">
+    <p class="opacity-40 lg:opacity-100 text-start text-body text-xs sm:text-sm md:text-base">
       <%= sc("overview", "sidebar") %>
     </p>
   </div>
@@ -39,11 +39,11 @@
 >
   <!-- Content -->
   <div class="order-2 lg:order-1 flex-1 max-w-xl">
-    <h2 class="mb-8 text-4xl font-bold text-heading">
+    <h2 class="mb-4 sm:mb-6 md:mb-8 text-2xl sm:text-3xl md:text-4xl font-bold text-heading">
       <%= sc("navbar", "who_we_are_label") %>
     </h2>
 
-    <p class="text-start text-body leading-relaxed">
+    <p class="text-start text-body text-sm sm:text-base leading-relaxed">
       <%= sc("who_we_are", "body") %>
     </p>
   </div>
@@ -79,11 +79,11 @@
 >
   <!-- Header -->
   <div class="max-w-4xl mx-auto text-center">
-    <h2 class="mb-6 text-4xl font-bold text-heading">
+    <h2 class="mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl font-bold text-heading">
       <%= sc("navbar", "services_label") %>
     </h2>
 
-    <p class="text-base md:text-lg text-body leading-7 md:leading-8">
+    <p class="text-sm sm:text-base md:text-lg text-body leading-relaxed md:leading-8">
       <%= sc("our_services", "header") %>
     </p>
   </div>
@@ -92,69 +92,69 @@
   <div class="grid grid-cols-1 gap-6 mt-12 md:mt-16 md:grid-cols-2 xl:grid-cols-3">
 
     <!-- Card 1 -->
-    <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs flex flex-col justify-between">
+    <div class="p-5 sm:p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs flex flex-col justify-between">
       <div>
-        <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
+        <h3 class="mb-2 text-lg sm:text-xl md:text-2xl font-bold text-heading">
           <%= sc("our_services", "card1_heading") %>
         </h3>
 
-        <p class="mb-6 text-body italic">
+        <p class="mb-4 sm:mb-6 text-xs sm:text-sm md:text-base text-body italic">
           <%= sc("our_services", "card1_desc") %>
         </p>
 
-        <div class="text-body">
+        <div class="text-xs sm:text-sm md:text-base text-body">
           <%= sc("our_services", "card1_features") %>
         </div>
       </div>
 
-      <div class="pt-6 mt-6 border-t border-default">
-        <p class="text-sm text-body">
+      <div class="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-default">
+        <p class="text-xs sm:text-sm text-body">
           <%= sc("our_services", "card1_footer") %>
         </p>
       </div>
     </div>
 
     <!-- Card 2 -->
-    <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs flex flex-col justify-between">
+    <div class="p-5 sm:p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs flex flex-col justify-between">
       <div>
-        <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
+        <h3 class="mb-2 text-lg sm:text-xl md:text-2xl font-bold text-heading">
           <%= sc("our_services", "card2_heading") %>
         </h3>
 
-        <p class="mb-6 text-body italic">
+        <p class="mb-4 sm:mb-6 text-xs sm:text-sm md:text-base text-body italic">
           <%= sc("our_services", "card2_desc") %>
         </p>
 
-        <div class="text-body">
+        <div class="text-xs sm:text-sm md:text-base text-body">
           <%= sc("our_services", "card2_features") %>
         </div>
       </div>
 
-      <div class="pt-6 mt-6 border-t border-default">
-        <p class="text-sm text-body">
+      <div class="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-default">
+        <p class="text-xs sm:text-sm text-body">
           <%= sc("our_services", "card2_footer") %>
         </p>
       </div>
     </div>
 
     <!-- Card 3 -->
-    <div class="p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs flex flex-col justify-between">
+    <div class="p-5 sm:p-6 md:p-8 border rounded-base bg-neutral-primary-soft border-default shadow-xs flex flex-col justify-between">
       <div>
-        <h3 class="mb-2 text-xl md:text-2xl font-bold text-heading">
+        <h3 class="mb-2 text-lg sm:text-xl md:text-2xl font-bold text-heading">
           <%= sc("our_services", "card3_heading") %>
         </h3>
 
-        <p class="mb-6 text-body italic">
+        <p class="mb-4 sm:mb-6 text-xs sm:text-sm md:text-base text-body italic">
           <%= sc("our_services", "card3_desc") %>
         </p>
 
-        <div class="text-body">
+        <div class="text-xs sm:text-sm md:text-base text-body">
           <%= sc("our_services", "card3_features") %>
         </div>
       </div>
 
-      <div class="pt-6 mt-6 border-t border-default">
-        <p class="text-sm text-body">
+      <div class="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-default">
+        <p class="text-xs sm:text-sm text-body">
           <%= sc("our_services", "card3_footer") %>
         </p>
       </div>
@@ -165,11 +165,11 @@
 
 <section id="reals" data-controller="t-reals" class="min-h-screen py-16">
   <section class="panel plain px-6 md:px-12">
-    <h2 class="mb-6 text-4xl font-bold text-heading">
+    <h2 class="mb-4 sm:mb-6 text-2xl sm:text-3xl md:text-4xl font-bold text-heading">
       <%= sc("navbar", "reals_label") %>
     </h2>
 
-    <p class="text-lg text-body leading-8">
+    <p class="text-sm sm:text-base md:text-lg text-body leading-relaxed md:leading-8">
       <%= sc("three_reals", "description") %>
     </p>
   </section>
@@ -206,8 +206,8 @@
               <% end %>
             </div>
           </div>
-          <div class="px-20 flex text-center justify-center items-center">
-            <h3 class="mb-6 text-3xl font-bold text-heading">
+          <div class="px-8 sm:px-14 md:px-20 flex text-center justify-center items-center">
+            <h3 class="mb-4 sm:mb-6 text-xl sm:text-2xl md:text-3xl font-bold text-heading">
               <%= sc("three_reals", "client_heading") %>
             </h3>
           </div>
@@ -305,8 +305,8 @@
               <% end %>
             </div>
           </div>
-          <div class="px-20 flex text-center justify-center items-center">
-            <h3 class="mb-6 text-3xl font-bold text-heading">
+          <div class="px-8 sm:px-14 md:px-20 flex text-center justify-center items-center">
+            <h3 class="mb-4 sm:mb-6 text-xl sm:text-2xl md:text-3xl font-bold text-heading">
               <%= sc("three_reals", "growth_heading") %>
             </h3>
           </div>
@@ -332,8 +332,8 @@
               <% end %>
             </div>
           </div>
-          <div class="px-20 flex text-center justify-center items-center">
-            <h3 class="mb-6 text-3xl font-bold text-heading">
+          <div class="px-8 sm:px-14 md:px-20 flex text-center justify-center items-center">
+            <h3 class="mb-4 sm:mb-6 text-xl sm:text-2xl md:text-3xl font-bold text-heading">
               <%= sc("three_reals", "connection_heading") %>
             </h3>
           </div>
@@ -398,8 +398,8 @@
 </section>
 
 <section id="trusted-by" class="mt-10 mb-16 flex flex-col overflow-hidden">
-  <div class="max-w-4xl mx-auto mb-16">
-    <h2 class="text-4xl font-bold text-heading">
+  <div class="max-w-4xl mx-auto mb-8 sm:mb-12 md:mb-16">
+    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-heading">
       <%= sc("navbar", "trusted_by_label") %>
     </h2>
   </div>
@@ -421,15 +421,15 @@
 <!-- TODO: Test -->
 <section id="contact" class="min-h-screen flex flex-col justify-center px-6 lg:px-20 py-20">
   <div class="max-w-6xl mx-auto w-full">
-    <div class="text-center mb-16">
-      <h2 class="text-4xl font-bold text-heading mb-4"><%= sc("contact_us", "heading") %></h2>
-      <p class="text-lg text-body"><%= sc("contact_us", "description") %></p>
+    <div class="text-center mb-10 sm:mb-16">
+      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-heading mb-2 sm:mb-4"><%= sc("contact_us", "heading") %></h2>
+      <p class="text-sm sm:text-base md:text-lg text-body"><%= sc("contact_us", "description") %></p>
     </div>
 
     <div class="flex flex-col lg:flex-row gap-12 lg:gap-20">
       <div class="lg:w-5/12 text-left">
-        <h3 class="text-2xl font-bold text-heading mb-4"><%= sc("contact_us", "get_in_touch") %></h3>
-        <p class="text-body mb-8 leading-relaxed">
+        <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-heading mb-3 sm:mb-4"><%= sc("contact_us", "get_in_touch") %></h3>
+        <p class="text-xs sm:text-sm md:text-base text-body mb-6 sm:mb-8 leading-relaxed">
           <%= sc("contact_us", "help_text") %>
         </p>
 
@@ -437,15 +437,15 @@
           <div class="flex items-center gap-4">
             <svg class="w-6 h-6 text-brand flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21.5 6.5v11a1 1 0 0 1-1 1h-17a1 1 0 0 1-1-1v-11m19 0-9 6.5-9-6.5m19 0h-19"/></svg>
             <div>
-              <p class="text-sm text-body"><%= sc("contact_us", "email_label") %></p>
-              <a href="mailto:<%= sc("contact_us", "email_value") %>" class="text-heading hover:text-brand font-medium"><%= sc("contact_us", "email_value") %></a>
+              <p class="text-xs sm:text-sm text-body"><%= sc("contact_us", "email_label") %></p>
+              <a href="mailto:<%= sc("contact_us", "email_value") %>" class="text-sm sm:text-base text-heading hover:text-brand font-medium"><%= sc("contact_us", "email_value") %></a>
             </div>
           </div>
           <div class="flex items-center gap-4">
             <svg class="w-6 h-6 text-brand flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.4 5.6a8.8 8.8 0 0 1 0 12.8M15.3 8.7a4.8 4.8 0 0 1 0 6.6M12 12h.01M12 12h.01M9.7 8.7a4.8 4.8 0 0 0 0 6.6M5.6 5.6a8.8 8.8 0 0 0 0 12.8"/></svg>
             <div>
-              <p class="text-sm text-body"><%= sc("contact_us", "phone_label") %></p>
-              <span class="text-heading font-medium"><%= sc("contact_us", "phone_value") %></span>
+              <p class="text-xs sm:text-sm text-body"><%= sc("contact_us", "phone_label") %></p>
+              <span class="text-sm sm:text-base text-heading font-medium"><%= sc("contact_us", "phone_value") %></span>
             </div>
           </div>
         </div>
@@ -455,28 +455,28 @@
         <%= form_with url: contact_path, local: true, class: "space-y-5" do |form| %>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <%= form.label :name, sc("contact_us", "name_label"), class: "block text-sm font-medium text-heading mb-1.5" %>
-              <%= form.text_field :name, required: true, placeholder: sc("contact_us", "name_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
+              <%= form.label :name, sc("contact_us", "name_label"), class: "block text-xs sm:text-sm font-medium text-heading mb-1 sm:mb-1.5" %>
+              <%= form.text_field :name, required: true, placeholder: sc("contact_us", "name_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body text-xs sm:text-sm px-3 py-2 sm:px-4 sm:py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
             </div>
             <div>
-              <%= form.label :email, sc("contact_us", "email_field_label"), class: "block text-sm font-medium text-heading mb-1.5" %>
-              <%= form.email_field :email, required: true, placeholder: sc("contact_us", "email_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
+              <%= form.label :email, sc("contact_us", "email_field_label"), class: "block text-xs sm:text-sm font-medium text-heading mb-1 sm:mb-1.5" %>
+              <%= form.email_field :email, required: true, placeholder: sc("contact_us", "email_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body text-xs sm:text-sm px-3 py-2 sm:px-4 sm:py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
             </div>
             <div>
-              <%= form.label :organization, sc("contact_us", "org_label"), class: "block text-sm font-medium text-heading mb-1.5" %>
-              <%= form.text_field :organization, placeholder: sc("contact_us", "org_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
+              <%= form.label :organization, sc("contact_us", "org_label"), class: "block text-xs sm:text-sm font-medium text-heading mb-1 sm:mb-1.5" %>
+              <%= form.text_field :organization, placeholder: sc("contact_us", "org_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body text-xs sm:text-sm px-3 py-2 sm:px-4 sm:py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
             </div>
             <div>
-              <%= form.label :phone, sc("contact_us", "phone_field_label"), class: "block text-sm font-medium text-heading mb-1.5" %>
-              <%= form.telephone_field :phone, placeholder: sc("contact_us", "phone_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
+              <%= form.label :phone, sc("contact_us", "phone_field_label"), class: "block text-xs sm:text-sm font-medium text-heading mb-1 sm:mb-1.5" %>
+              <%= form.telephone_field :phone, placeholder: sc("contact_us", "phone_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body text-xs sm:text-sm px-3 py-2 sm:px-4 sm:py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none" %>
             </div>
           </div>
           <div>
-            <%= form.label :message, sc("contact_us", "message_label"), class: "block text-sm font-medium text-heading mb-1.5" %>
-            <%= form.text_area :message, rows: 5, required: true, placeholder: sc("contact_us", "message_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body px-4 py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none resize-none" %>
+            <%= form.label :message, sc("contact_us", "message_label"), class: "block text-xs sm:text-sm font-medium text-heading mb-1 sm:mb-1.5" %>
+            <%= form.text_area :message, rows: 5, required: true, placeholder: sc("contact_us", "message_placeholder"), class: "w-full rounded-base border border-default bg-neutral-primary-soft text-body text-xs sm:text-sm px-3 py-2 sm:px-4 sm:py-2.5 focus:ring-2 focus:ring-brand-medium focus:border-brand outline-none resize-none" %>
           </div>
           <div class="text-right">
-            <%= form.submit sc("contact_us", "submit_text"), class: "text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-base px-6 py-3 focus:outline-none cursor-pointer" %>
+            <%= form.submit sc("contact_us", "submit_text"), class: "text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-sm sm:text-base px-5 py-2.5 sm:px-6 sm:py-3 focus:outline-none cursor-pointer" %>
           </div>
         <% end %>
       </div>
