@@ -11,7 +11,7 @@ module Admin
     MAX_GALLERY_IMAGES = 20
 
     def show
-      groups = SiteContent.ordered.group_by(&:section)
+      groups = SiteContent.ordered.with_attached_file_and_variants.group_by(&:section)
       @sections = ALLOWED_CONTENT_SECTIONS.map { |s| [ s, groups[s] || [] ] }.to_h
     end
 
@@ -23,6 +23,7 @@ module Admin
           if data[:file].present?
             validate_file_upload!(data[:file])
             record.file.attach(data[:file])
+            record.pregenerate_variants!
           end
         end
       end
@@ -51,6 +52,7 @@ module Admin
       if params[:file].present?
         validate_file_upload!(params[:file])
         record.file.attach(params[:file])
+        record.pregenerate_variants!
       end
 
       respond_to do |format|

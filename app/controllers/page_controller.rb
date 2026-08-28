@@ -3,7 +3,9 @@ class PageController < ApplicationController
   end
 
   def gallery
-    @gallery_images = SiteContent.by_section("gallery").select { |r| r.file.attached? }
+    @gallery_images = SiteContent.by_section("gallery")
+                                 .with_attached_file_and_variants
+                                 .select { |r| r.file.attached? }
   end
 
   def contact

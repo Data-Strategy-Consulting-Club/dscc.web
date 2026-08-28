@@ -39,10 +39,12 @@
             data-aspect-ratio="<%= (record.file.blob.metadata["width"].to_f / record.file.blob.metadata["height"].to_f).round(4) %>"
           <% end %>
         >
-          <%= image_tag record.file,
+          <%= optimized_image_tag record,
+                        size: :large,
                         draggable: false,
                         class: "w-full h-full object-cover pointer-events-none select-none rounded-2xl block",
                         loading: "eager",
+                        decoding: "async",
                         alt: "DSCC Gallery Photo" %>
 
           <!-- Corner Resize Handles -->

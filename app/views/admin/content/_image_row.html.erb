@@ -4,7 +4,7 @@
   </label>
   <% if record.file.attached? %>
     <div class="mb-2">
-      <%= image_tag record.file, class: "max-h-24 w-auto rounded border" %>
+      <%= optimized_image_tag record, size: :thumb, class: "max-h-24 w-auto rounded border" %>
     </div>
   <% end %>
   <div class="flex items-center gap-4">

@@ -117,3 +117,5 @@ entries.each do |attrs|
     r.position = attrs[:position]
   end
 end
+
+SiteContent.all.select { |r| r.file.attached? }.each(&:pregenerate_variants!)

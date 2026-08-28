@@ -35,10 +35,10 @@
       <nav id="navbar" class="bg-neutral-primary/50 backdrop-blur-md fixed w-full z-50 top-0 start-0 border-b border-default">
         <div class="max-w-screen-xl flex items-center justify-center mx-auto p-4">
           <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse hover:opacity-90 transition-opacity cursor-pointer">
-            <% if (logo = sc_image("navbar", "logo_image", class: "h-9")) %>
+            <% if (logo = sc_image("navbar", "logo_image", size: :thumb, loading: "eager", class: "h-9 w-auto", alt: "DSCC Logo")) %>
               <%= logo %>
             <% else %>
-              <%= image_tag "dscc-black-logo.svg", class: ["h-9"] %>
+              <%= image_tag "dscc-black-logo.svg", class: ["h-9", "w-auto"], loading: "eager", decoding: "async", alt: "DSCC Logo" %>
             <% end %>
           </a>
         </div>
@@ -47,10 +47,10 @@
       <nav id="navbar" data-controller="navbar" class="bg-neutral-primary/50 backdrop-blur-md fixed w-full z-50 top-0 start-0 border-b border-default transition-transform duration-300">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <% if (logo = sc_image("navbar", "logo_image", class: "h-9")) %>
+            <% if (logo = sc_image("navbar", "logo_image", size: :thumb, loading: "eager", class: "h-9 w-auto", alt: "DSCC Logo")) %>
               <%= logo %>
             <% else %>
-              <%= image_tag "dscc-black-logo.svg", class: ["h-9"] %>
+              <%= image_tag "dscc-black-logo.svg", class: ["h-9", "w-auto"], loading: "eager", decoding: "async", alt: "DSCC Logo" %>
             <% end %>
           </a>
           <div class="inline-flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">

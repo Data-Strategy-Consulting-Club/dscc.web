@@ -1,7 +1,7 @@
 <% content_field = ->(form, record) do %>
   <% if record.file.attached? %>
     <div class="mb-2">
-      <%= image_tag record.file, class: "max-h-24 w-auto rounded border" %>
+      <%= optimized_image_tag record, size: :thumb, class: "max-h-24 w-auto rounded border" %>
     </div>
   <% end %>
 
