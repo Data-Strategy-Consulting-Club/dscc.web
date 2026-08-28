@@ -2,4 +2,10 @@
 require "rubygems"
 require "bundler/setup"
 
+if ENV["PORT"] && !ENV["PORT"].empty? && (ENV["HTTP_PORT"].nil? || ENV["HTTP_PORT"].empty?)
+  ENV["HTTP_PORT"] = ENV["PORT"]
+  ENV["TARGET_PORT"] ||= (ENV["PORT"] == "3000" ? "3001" : "3000")
+end
+
 load Gem.bin_path("thruster", "thrust")
+
