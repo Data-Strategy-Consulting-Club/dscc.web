@@ -30,18 +30,20 @@ class PageControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should submit contact form successfully and enqueue email" do
-    assert_enqueued_emails 1 do
-      post contact_url, params: {
-        name: "Alice",
-        email: "alice@example.com",
-        organization: "Data Corp",
-        phone: "123-456-7890",
-        message: "Hello DSCC"
-      }
-    end
+    with_env("WEB3FORMS_ACCESS_KEY" => nil) do
+      assert_enqueued_emails 1 do
+        post contact_url, params: {
+          name: "Alice",
+          email: "alice@example.com",
+          organization: "Data Corp",
+          phone: "123-456-7890",
+          message: "Hello DSCC"
+        }
+      end
 
-    assert_redirected_to root_path(anchor: "contact")
-    assert_equal "Thank you for your message! We'll get back to you soon.", flash[:notice]
+      assert_redirected_to root_path(anchor: "contact")
+      assert_equal "Thank you for your message! We'll get back to you soon.", flash[:notice]
+    end
   end
 
   test "should submit contact form via web3forms when access key is present" do
