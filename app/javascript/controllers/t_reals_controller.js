@@ -6,32 +6,43 @@ import { ScrollSmoother } from "gsap/ScrollSmoother"
 // Connects to data-controller="t-reals"
 export default class extends Controller {
   connect() {
-    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 
-    const smoother = ScrollSmoother.create({
+    // Manual scroll restoration prevents browser from prematurely jumping before ScrollTrigger initializes
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual"
+    }
+
+    // Clean up any stale smoother or triggers from prior page visits
+    this.cleanup()
+
+    this.smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
-      smooth: 2,
-      normalizeScroll: true,
-      ignoreMobileResize: true,
-      preventDefault: true
-    });
+      smooth: 1.2,
+      effects: false,
+      normalizeScroll: false,
+      ignoreMobileResize: true
+    })
 
-    //Horizontal Scroll Galleries
-    if (document.getElementById("portfolio")) {
-      const horizontalSections = gsap.utils.toArray(".horiz-gallery-wrapper");
+    this.triggers = []
 
-      horizontalSections.forEach(function (sec) {
-        const pinWraps = sec.querySelectorAll(".horiz-gallery-strip");
+    // Horizontal Scroll Galleries
+    const portfolio = document.getElementById("portfolio")
+    if (portfolio) {
+      const horizontalSections = gsap.utils.toArray(".horiz-gallery-wrapper")
 
-        pinWraps.forEach(function(pinWrap, j) {
-          const direction = j % 2 === 0 ? -1 : 1;
-          const scrollLength = pinWrap.scrollWidth - window.innerWidth;
+      horizontalSections.forEach((sec) => {
+        const pinWraps = sec.querySelectorAll(".horiz-gallery-strip")
+
+        pinWraps.forEach((pinWrap, j) => {
+          const direction = j % 2 === 0 ? -1 : 1
+          const scrollLength = pinWrap.scrollWidth - window.innerWidth
 
           if (direction === -1) {
-            gsap.to(pinWrap, {
+            const tween = gsap.to(pinWrap, {
               scrollTrigger: {
-                scrub: true,
+                scrub: 1,
                 trigger: sec,
                 pin: j === 0 ? sec : false,
                 start: "center center",
@@ -40,13 +51,15 @@ export default class extends Controller {
               },
               x: () => -scrollLength,
               ease: "none"
-            });
+            })
+            if (tween.scrollTrigger) this.triggers.push(tween.scrollTrigger)
           } else {
-            gsap.fromTo(pinWrap,
+            const tween = gsap.fromTo(
+              pinWrap,
               { x: () => -scrollLength },
               {
                 scrollTrigger: {
-                  scrub: true,
+                  scrub: 1,
                   trigger: sec,
                   pin: false,
                   start: "center center",
@@ -56,10 +69,41 @@ export default class extends Controller {
                 x: 0,
                 ease: "none"
               }
-            );
+            )
+            if (tween.scrollTrigger) this.triggers.push(tween.scrollTrigger)
           }
-        });
-      });
+        })
+      })
     }
+
+    ScrollTrigger.refresh()
+  }
+
+  disconnect() {
+    this.cleanup()
+  }
+
+  cleanup() {
+    if (this.triggers && this.triggers.length > 0) {
+      this.triggers.forEach((t) => {
+        try {
+          t.kill()
+        } catch (e) {
+          // ignore
+        }
+      })
+      this.triggers = []
+    }
+
+    const existingSmoother = ScrollSmoother.get()
+    if (existingSmoother) {
+      try {
+        existingSmoother.kill()
+      } catch (e) {
+        // ignore
+      }
+    }
+    this.smoother = null
   }
 }
+
