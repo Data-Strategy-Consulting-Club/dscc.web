@@ -38,7 +38,7 @@ bin/rails server     # web only (no JS/CSS watcher)
   - **CSS**: Tailwind CSS v4 via `tailwindcss-rails` + Flowbite components.
 - **Admin System (`/admin`)**:
   - `Admin::SessionsController`: Handles login/logout with IP rate limiting. Supports `ENV["ADMIN_USERNAME"]` / `ENV["ADMIN_PASSWORD"]` with fallback to `credentials.yml.enc` and test fallbacks.
-  - `Admin::ContentController`: Allows live copy editing and Turbo Stream-powered gallery image management (add/remove with max 20 images limit).
+  - `Admin::ContentController`: Allows live copy editing and Turbo Stream-powered gallery image management (add/remove images).
 - **Production & Deployment**:
   - Multi-stage [`Dockerfile`](file:///home/tlee/Projects/dscc/Dockerfile) includes Bun, Libvips, jemalloc, Thruster, and `gosu`.
   - Persistent volume MUST be mounted at `/rails/storage` to preserve SQLite databases and uploaded ActiveStorage assets.
