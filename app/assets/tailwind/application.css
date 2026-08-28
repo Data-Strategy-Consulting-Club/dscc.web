@@ -68,16 +68,24 @@ section {
 .trusted-by-wrapper {
   width: 100%;
   overflow: hidden;
+  position: relative;
+}
+
+.trusted-by-wrapper.has-overflow {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
 .trusted-by-track {
   display: flex;
-  gap: 3rem;
-  width: max-content;
 }
 
 .trusted-by-track.is-animating {
-  animation: marquee 40s linear infinite;
+  animation: marquee 25s linear infinite;
+}
+
+.trusted-by-track.is-animating:hover {
+  animation-play-state: paused;
 }
 
 .bg-dotted-grid {
