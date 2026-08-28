@@ -1,4 +1,7 @@
-[![CI](https://github.com/Data-Strategy-Consulting-Club/dscc.web/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Strategy-Consulting-Club/dscc.web/actions/workflows/ci.yml) [![CI](https://github.com/Data-Strategy-Consulting-Club/dscc.web/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Strategy-Consulting-Club/dscc.web/actions/workflows/ci.yml)
+|Branch|Status|
+|-|-|
+|prod|[![CI](https://github.com/Data-Strategy-Consulting-Club/dscc.web/actions/workflows/ci.yml/badge.svg?branch=dev)](https://github.com/Data-Strategy-Consulting-Club/dscc.web/actions/workflows/ci.yml)|
+|dev|[![CI](https://github.com/Data-Strategy-Consulting-Club/dscc.web/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Data-Strategy-Consulting-Club/dscc.web/actions/workflows/ci.yml)|
 
 # DSCC Web
 
@@ -65,6 +68,114 @@ The official web platform for the **Data Strategy & Consulting Club (DSCC)**. Bu
    bin/ci                  # Full local CI pipeline (lint, security audit, tests)
    ```
 
+---
+## Development & Branch Strategy
+
+This project uses a controlled branch strategy to keep production deployments stable, development changes reviewable, and the Git history consistent.
+
+### Branches
+
+The repository maintains two protected long-lived branches:
+
+| Branch | Purpose | Direct Push | Pull Request | Deployment Required |
+|---|---|:---:|:---:|:---:|
+| `prod` | Production-ready code | No | Yes | Yes |
+| `dev` | Development/integration code | No | Yes | No |
+
+### Allowed Branch Names
+
+New branches may only be created using the following naming conventions:
+
+| Pattern | Purpose | Example |
+|---|---|---|
+| `feature/**` | Implementing a new feature | `feature/gallery-filter` |
+| `patch/**` | Bug fixes, hotfixes, or patches | `patch/fix-admin-login` |
+| `release/**` | Preparing a release | `release/1.2.0` |
+| `dev` | Protected development branch | `dev` |
+| `prod` | Protected production branch | `prod` |
+
+The `dev` and `prod` branches are long-lived protected branches and must not be recreated, renamed, or deleted as part of normal development.
+
+Other branch names are not permitted.
+
+---
+
+### Branch Workflow
+
+The expected development flow is:
+
+```text
+                    ┌─────────────────┐
+                    │     feature/*   │
+                    │     patch/*     │
+                    └────────┬────────┘
+                             │
+                             │ Pull Request
+                             ▼
+                       ┌───────────┐
+                       │    dev    │
+                       └─────┬─────┘
+                             │
+                             │ Pull Request
+                             ▼
+                       ┌───────────┐
+                       │  release/*│
+                       └─────┬─────┘
+                             │
+                             │ Pull Request
+                             ▼
+                       ┌───────────┐
+                       │   prod    │
+                       └───────────┘
+                             │
+                             ▼
+                       Production
+```
+---
+## Conventional Commits
+This project follows the [Conventional Commits 1.0.0](https://www.conventionalcommits.org/en/v1.0.0/) specification.
+Conventional Commits provide a lightweight convention for creating structured, human-readable and machine-readable commit messages.
+The basic format is:
+
+```text
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Allowed Commit Types
+The following commit types are used by this project:
+
+| Type       | Purpose                                                 |
+| ---------- | ------------------------------------------------------- |
+| `feat`     | Introduces a new feature                                |
+| `fix`      | Fixes a bug                                             |
+| `docs`     | Documentation-only changes                              |
+| `style`    | Formatting or style changes that do not affect behavior |
+| `refactor` | Code restructuring without changing behavior            |
+| `perf`     | Performance improvements                                |
+| `test`     | Adding or modifying tests                               |
+| `build`    | Changes to build system or dependencies                 |
+| `ci`       | Changes to CI/CD configuration                          |
+| `chore`    | Maintenance tasks                                       |
+| `revert`   | Reverts a previous commit                               |
+
+
+### Example
+```text
+feat: add gallery filtering
+feat(gallery): add category filtering
+fix: prevent duplicate contact submissions
+fix(admin): handle invalid credentials
+docs: update deployment guide
+refactor(auth): simplify session handling
+test: add gallery system tests
+ci: update GitHub Actions workflow
+chore: update dependencies
+perf(gallery): optimize image loading
+```
 ---
 
 ## Deployment Guide (Railway)
