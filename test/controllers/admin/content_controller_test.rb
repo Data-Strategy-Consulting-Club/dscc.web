@@ -8,9 +8,16 @@ class Admin::ContentControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get show when authenticated" do
+    SiteContent.create!(section: "overview", key: "h1", content: "Main Heading")
+    SiteContent.create!(section: "three_reals", key: "client_image_0", content: "")
+    SiteContent.create!(section: "trusted_by", key: "image_0", content: "")
+
     get admin_content_url
     assert_response :success
     assert_select "summary", text: /Gallery/i
+    assert_select "label", text: /Title/
+    assert_select "label", text: /Client image 1/
+    assert_select "label", text: /Image 1/
   end
 
   test "should add image to gallery with html format" do

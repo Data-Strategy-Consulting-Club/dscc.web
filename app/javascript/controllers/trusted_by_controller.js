@@ -1,11 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["track"]
+  static targets = ["track", "wrapper", "primarySet"]
 
   connect() {
-    this.checkOverflow()
-    this.resizeHandler = this.checkOverflow.bind(this)
+    this.setup()
+    this.resizeHandler = this.debounce(this.setup.bind(this), 120)
     window.addEventListener("resize", this.resizeHandler)
   }
 
@@ -13,23 +13,65 @@ export default class extends Controller {
     window.removeEventListener("resize", this.resizeHandler)
   }
 
+  debounce(func, wait) {
+    let timeout
+    return (...args) => {
+      clearTimeout(timeout)
+      timeout = setTimeout(() => func.apply(this, args), wait)
+    }
+  }
+
+  setup() {
+    if (!this.hasPrimarySetTarget) return
+
+    const images = this.primarySetTarget.querySelectorAll("img")
+    const unloaded = Array.from(images).filter(img => !img.complete)
+
+    if (unloaded.length > 0) {
+      Promise.all(
+        unloaded.map(img => new Promise(res => {
+          img.onload = img.onerror = res
+        }))
+      ).then(() => this.checkOverflow())
+    } else {
+      this.checkOverflow()
+    }
+  }
+
   checkOverflow() {
+    if (!this.hasTrackTarget || !this.hasPrimarySetTarget) return
+
+    const wrapper = this.hasWrapperTarget ? this.wrapperTarget : this.element
     const track = this.trackTarget
-    if (track.children.length === 0) return
+    const primarySet = this.primarySetTarget
 
-    const gap = parseFloat(getComputedStyle(track).columnGap) || 0
-    const singleSetWidth = Array.from(track.children).reduce(
-      (sum, child) => sum + child.offsetWidth + gap,
-      0
-    ) - gap
+    const wrapperWidth = wrapper.clientWidth
+    const setWidth = primarySet.scrollWidth
 
-    if (singleSetWidth > track.parentElement.clientWidth) {
-      if (track.dataset.duplicated) return
-      Array.from(track.children).forEach(child => {
-        track.appendChild(child.cloneNode(true))
-      })
-      track.dataset.duplicated = "true"
-      track.classList.add("is-animating")
+    if (setWidth > wrapperWidth) {
+      if (!this.secondarySet) {
+        this.secondarySet = primarySet.cloneNode(true)
+        this.secondarySet.setAttribute("aria-hidden", "true")
+        this.secondarySet.classList.add("trusted-by-set")
+        track.appendChild(this.secondarySet)
+      }
+
+      primarySet.classList.add("pr-8", "md:pr-12")
+      this.secondarySet.classList.add("pr-8", "md:pr-12")
+      track.classList.remove("justify-center", "w-full")
+      track.classList.add("w-max", "is-animating")
+      wrapper.classList.add("has-overflow")
+    } else {
+      if (this.secondarySet) {
+        this.secondarySet.remove()
+        this.secondarySet = null
+      }
+
+      primarySet.classList.remove("pr-8", "md:pr-12")
+      track.classList.remove("w-max", "is-animating")
+      track.classList.add("justify-center", "w-full")
+      wrapper.classList.remove("has-overflow")
     }
   }
 }
+

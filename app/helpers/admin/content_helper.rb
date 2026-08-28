@@ -49,5 +49,15 @@ module Admin
 
       false
     end
+
+    def admin_content_label(record)
+      if record.section == "overview" && record.key == "h1"
+        "Title"
+      elsif record.key.match?(/(?:_image_|^image_)(\d+)\z/)
+        record.key.sub(/(\d+)\z/) { |n| (n.to_i + 1).to_s }.humanize
+      else
+        record.key.humanize
+      end
+    end
   end
 end

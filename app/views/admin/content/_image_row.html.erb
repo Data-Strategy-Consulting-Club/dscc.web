@@ -1,20 +1,20 @@
 <div id="site_content_<%= record.id %>" class="border-b border-gray-100 pb-4 last:border-b-0 last:pb-0">
-  <label class="block text-sm font-medium text-gray-700 mb-1">
-    <%= record.key.humanize %>
+  <label class="block text-xs sm:text-sm font-medium text-gray-700 mb-1">
+    <%= admin_content_label(record) %>
   </label>
   <% if record.file.attached? %>
     <div class="mb-2">
-      <%= image_tag record.file, class: "max-h-24 w-auto rounded border" %>
+      <%= optimized_image_tag record, size: :thumb, class: "max-h-24 w-auto rounded border" %>
     </div>
   <% end %>
   <div class="flex items-center gap-4">
     <div class="flex-1">
       <%= file_field_tag "contents[#{record.id}][file]", accept: ".jpg,.jpeg,.png,.svg,.webp",
-          class: "pl-5 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" %>
+          class: "pl-3 sm:pl-5 block w-full text-xs sm:text-sm text-gray-500 file:mr-2 sm:file:mr-4 file:py-1.5 sm:file:py-2 file:px-3 sm:file:px-4 file:rounded file:border-0 file:text-xs sm:file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" %>
     </div>
     <%= link_to "Remove", remove_image_admin_content_path(id: record.id),
         data: { turbo_method: :delete, turbo_confirm: "Remove this image?" },
-        class: "text-sm text-red-600 hover:text-red-800 whitespace-nowrap" %>
+        class: "text-xs sm:text-sm text-red-600 hover:text-red-800 whitespace-nowrap" %>
   </div>
   <%= hidden_field_tag "contents[#{record.id}][content]", "" %>
 </div>

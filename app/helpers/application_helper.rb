@@ -15,10 +15,33 @@ module ApplicationHelper
     sanitize(@_site_content_cache[:"#{section}_#{key}"], tags: ALLOWED_TAGS, attributes: ALLOWED_ATTRS)
   end
 
-  def sc_image(section, key, **options)
-    record = SiteContent.find_by(section: section, key: key)
-    if record&.file&.attached?
-      image_tag record.file, **options
+  def sc_image(section, key, size: :medium, **options)
+    @_site_content_record_cache ||= {}
+    record = @_site_content_record_cache[:"#{section}_#{key}"] ||= SiteContent.find_by(section: section, key: key)
+    return unless record&.file&.attached?
+
+    optimized_image_tag(record, size: size, **options)
+  end
+
+  def optimized_image_tag(record_or_attachment, size: :medium, **options)
+    attachment = record_or_attachment.is_a?(SiteContent) ? record_or_attachment.file : record_or_attachment
+    return unless attachment&.attached?
+
+    default_options = {
+      loading: "lazy",
+      decoding: "async"
+    }
+
+    if options[:alt].blank? && record_or_attachment.is_a?(SiteContent)
+      default_options[:alt] = "DSCC #{record_or_attachment.section.tr('_', ' ').titleize} #{record_or_attachment.key.tr('_', ' ').humanize}"
+    end
+
+    merged_options = default_options.merge(options)
+
+    if attachment.variable?
+      image_tag attachment.variant(size), **merged_options
+    else
+      image_tag attachment, **merged_options
     end
   end
 end
