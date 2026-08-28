@@ -36,17 +36,16 @@ class Admin::ContentControllerTest < ActionDispatch::IntegrationTest
     assert_includes response.body, %(action="append" target="gallery_records")
   end
 
-  test "should enforce max 20 images limit in gallery" do
+  test "should allow adding images to gallery without limit" do
     SiteContent.where(section: "gallery").destroy_all
     20.times do |i|
       SiteContent.create!(section: "gallery", key: "image_#{i}", content: "")
     end
 
-    assert_no_difference -> { SiteContent.where(section: "gallery").count } do
+    assert_difference -> { SiteContent.where(section: "gallery").count }, 1 do
       post add_image_admin_content_url, params: { section: "gallery" }
     end
     assert_redirected_to admin_content_url
-    assert_equal "Maximum 20 images allowed in gallery.", flash[:alert]
   end
 
   test "should remove image with html format" do
