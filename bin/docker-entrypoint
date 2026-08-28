@@ -1,15 +1,28 @@
 #!/bin/bash -e
 
 # Ensure storage, tmp, and log directories exist and have proper permissions
-mkdir -p /rails/storage /rails/tmp /rails/log
+mkdir -p storage tmp log
 
 if [ "$(id -u)" = "0" ]; then
-  chown -R rails:rails /rails/storage /rails/tmp /rails/log 2>/dev/null || true
-  chmod -R 775 /rails/storage /rails/tmp /rails/log 2>/dev/null || true
+  chown -R rails:rails storage tmp log 2>/dev/null || true
+  chmod -R 775 storage tmp log 2>/dev/null || true
+fi
+
+
+# Set up Thruster ports if PORT is provided (e.g. Railway or other PaaS)
+if [ -n "$PORT" ] && [ -z "$HTTP_PORT" ]; then
+  export HTTP_PORT="$PORT"
+  if [ -z "$TARGET_PORT" ]; then
+    if [ "$PORT" = "3000" ]; then
+      export TARGET_PORT="3001"
+    else
+      export TARGET_PORT="3000"
+    fi
+  fi
 fi
 
 # If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
+if [[ "$*" =~ rails[[:space:]]+(server|s) ]]; then
   if [ "$(id -u)" = "0" ]; then
     gosu rails ./bin/rails db:prepare
   else
@@ -22,3 +35,4 @@ if [ "$(id -u)" = "0" ]; then
 else
   exec "${@}"
 fi
+
