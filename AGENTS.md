@@ -1,48 +1,61 @@
 # AGENTS.md — dscc
 
-Rails 8.1.3 app (SQLite, Propshaft, Import Maps, Hotwire, Tailwind). Ruby 4.0.5. Zero-ops deploy via Kamal.
+Rails 8.1.3 app (Ruby 4.0.5, SQLite 3, Propshaft, jsbundling-rails + Bun, Hotwire, Tailwind CSS v4). Deployment via Railway & Docker.
 
-## Quick start
+## Quick Start
 
 ```sh
-bin/setup            # bundle install + db:prepare, then bin/dev
-bin/dev              # foreman: web (puma :3000) + tailwindcss:watch
-bin/rails server     # web only (no CSS watcher)
+bin/setup            # bundle install + npm/bun install + db:prepare
+bin/dev              # foreman: web (puma :3000) + js:watch + tailwindcss:watch
+bin/rails server     # web only (no JS/CSS watcher)
 ```
 
-## Commands
+## Key Commands
 
-| What | How |
+| What | Command |
 |---|---|
-| Run all tests | `bin/rails test` |
-| Run system tests | `bin/rails test:system` |
-| Run a single test file | `bin/rails test test/controllers/page_controller_test.rb` |
-| Lint | `bin/rubocop` |
+| Run all unit & integration tests | `bin/rails test` |
+| Run system tests (headless Chrome) | `bin/rails test:system` |
+| Run single test file | `bin/rails test test/controllers/admin/content_controller_test.rb` |
+| Lint Ruby style | `bin/rubocop` |
 | Security audits | `bin/brakeman --no-pager` · `bin/bundler-audit` · `npm audit --omit=dev` |
 | Full local CI | `bin/ci` (setup → rubocop → security audits → tests → seed replant) |
-| Dev server | `bin/dev` (foreman: web + CSS) |
-| Console | `bin/rails console` |
-| Generate | `bin/rails generate` (standard Rails generators; RuboCop autocorrect after generate is optional — see `config/environments/development.rb:77`) |
+| Replant database seeds | `bin/rails db:seed:replant` |
+| JavaScript build | `bun bun.config.js` (or `bin/rails javascript:build`) |
+| CSS build | `bin/rails tailwindcss:build` |
+| Build & test Docker image | `docker build -t dscc .` |
 
-CI runs in order: `brakeman` → `bundler-audit` → `npm audit` → `rubocop` → `test` → `system-test` (GitHub Actions, parallel jobs).
+## Architecture & Conventions
 
-## Architecture
+- **Models & Database**:
+  - `SiteContent` (`section:string`, `key:string`, `content:text`): Stores dynamic copy and active storage image attachments (`has_one_attached :file`).
+  - View helper `sc(section, key)` in `ApplicationHelper` retrieves content with safe fallbacks.
+  - Active Record SQLite database in `storage/` (`development.sqlite3`, `test.sqlite3`, `production.sqlite3`).
+  - Production uses Solid Cache, Solid Queue, and Solid Cable in dedicated SQLite databases.
+- **Frontend & Assets**:
+  - **JavaScript**: Bundled via `jsbundling-rails` using **Bun** (`bun.config.js`) into `app/assets/builds/application.js`.
+  - **Controllers**: Stimulus controllers in `app/javascript/controllers/` (e.g. `gallery_draggable_controller.js` for physics-based GSAP gallery).
+  - **CSS**: Tailwind CSS v4 via `tailwindcss-rails` + Flowbite components.
+- **Admin System (`/admin`)**:
+  - `Admin::SessionsController`: Handles login/logout with IP rate limiting. Supports `ENV["ADMIN_USERNAME"]` / `ENV["ADMIN_PASSWORD"]` with fallback to `credentials.yml.enc` and test fallbacks.
+  - `Admin::ContentController`: Allows live copy editing and Turbo Stream-powered gallery image management (add/remove with max 20 images limit).
+- **Production & Deployment**:
+  - Multi-stage [`Dockerfile`](file:///home/tlee/Projects/dscc/Dockerfile) includes Bun, Libvips, jemalloc, Thruster, and `gosu`.
+  - Persistent volume MUST be mounted at `/rails/storage` to preserve SQLite databases and uploaded ActiveStorage assets.
+  - Entrypoint [`bin/docker-entrypoint`](file:///home/tlee/Projects/dscc/bin/docker-entrypoint) automatically ensures `/rails/storage` directory exists, fixes root mount permissions (`chown -R rails:rails`), and drops to non-root `rails` user via `gosu`.
+  - Health check endpoint: `GET /up` (`rails/health#show`).
 
-- **SQLite everywhere** — one file per env (development/test/production) in `storage/`. Solid Queue, Cache, and Cable each get their own SQLite db in production.
-- **No JS build step** — Import Maps + Stimulus controllers in `app/javascript/controllers/`.
-- **Tailwind** — CSS built via `rails tailwindcss:watch` (dev) or `assets:precompile`.
-- **Deploy** — Kamal to `192.168.0.1` (config in `config/deploy.yml`, secrets in `.kamal/secrets`).
-- **Health check** — `GET /up` (rails/health#show).
-- **No models yet** — only `PageController` with root route. No migrations exist.
+## Testing & CI Notes
 
-## Testing quirks
+- Tests run using default Rails Minitest (`ActiveSupport::TestCase` & `ActionDispatch::IntegrationTest`).
+- System tests use `ActionDispatch::SystemTestCase` with headless Chrome (`test/application_system_test_case.rb`).
+- Tests do not require `RAILS_MASTER_KEY` (admin controllers provide safe test fallbacks).
+- GitHub Actions CI runs parallel jobs (`scan_ruby`, `scan_js`, `lint`, `test`, `system-test`).
+- Local CI can be verified anytime with `bin/ci`.
 
-- Rails default minitest with `ActiveSupport::TestCase`, parallel workers, fixture loading.
-- Test command in CI: `bin/rails db:test:prepare test` (prepares DB then runs suite).
-- System tests use Capybara + Selenium. Screenshots saved to `tmp/screenshots` on failure.
+## Environment Variables
 
-## Environment
-
-- `bin/dev` sets `RUBY_DEBUG_OPEN=true` and `RUBY_DEBUG_LAZY=true` for `debug` gem.
+- `RAILS_MASTER_KEY`: Decrypts `config/credentials.yml.enc` in production (kept in local `config/master.key`, never committed).
+- `SOLID_QUEUE_IN_PUMA=true`: Runs Solid Queue worker thread inside Puma for single-service deployments.
+- `ADMIN_USERNAME` / `ADMIN_PASSWORD`: Optional production admin credentials overrides.
 - `.env*` files are gitignored.
-- `RAILS_MASTER_KEY` lives in `config/master.key` (not committed).
