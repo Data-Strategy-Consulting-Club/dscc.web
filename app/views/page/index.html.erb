@@ -1,28 +1,28 @@
 <section id="overview" class="relative min-h-[calc(100dvh+80px)] flex flex-col lg:flex-row justify-center pt-26 px-10 lg:items-start lg:justify-between">
   <div id="overview-bg" data-controller="vanta-topology" class="absolute inset-0 -z-20"></div>
-  <div
-    class="absolute left-1/6 top-2/5 -translate-x-1/2 -translate-y-1/2
-           w-[800px] h-[800px]
-           rounded-full
-           bg-[radial-gradient(circle,_rgba(255,255,255,1)_0%,_rgba(255,255,255,0.9)_30%,_rgba(255,255,255,0)_70%)]
-           -z-10
-           pointer-events-none"
-  ></div>
-  <div
-    class="absolute left-5/6 top-1/4 -translate-x-1/2 -translate-y-1/2
-           w-[1000px] h-[800px]
-           rounded-full
-           bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,1)_0%,_rgba(255,255,255,0.9)_30%,_rgba(255,255,255,0)_70%)]
-           -z-10
-           pointer-events-none"
-  ></div>
-  <div class="flex flex-col lg:items-start lg:text-start lg:mt-30 lg:mr-30">
+  <div class="relative flex flex-col lg:items-start lg:text-start lg:mt-30 lg:mr-30">
+    <div
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+             w-[500px] h-[500px] sm:w-[800px] sm:h-[800px]
+             rounded-full
+             bg-[radial-gradient(circle,_rgba(255,255,255,1)_0%,_rgba(255,255,255,0.9)_30%,_rgba(255,255,255,0)_70%)]
+             -z-10
+             pointer-events-none"
+    ></div>
     <h1 id="overview" class="mb-4 sm:mb-6 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-heading"><%= sc("overview", "h1") %></h1>
     <p class="mb-5 sm:mb-6 text-sm sm:text-base md:text-lg lg:text-xl font-normal text-body"><%= sc("overview", "tagline") %></p>
     <a href="#contact" class="inline-block self-center lg:self-start text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-sm sm:text-base px-4 py-2.5 sm:px-5 sm:py-3 focus:outline-none"><%= sc("navbar", "contact_button") %></a>
   </div>
-  <div class="lg:w-100 mt-10">
-    <p class="opacity-40 lg:opacity-100 text-start text-body text-xs sm:text-sm md:text-base">
+  <div class="relative lg:w-100 mt-10">
+    <div
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+             w-[500px] h-[500px] sm:w-[1000px] sm:h-[800px]
+             rounded-full
+             bg-[radial-gradient(ellipse_at_center,_rgba(255,255,255,1)_0%,_rgba(255,255,255,0.9)_30%,_rgba(255,255,255,0)_70%)]
+             -z-10
+             pointer-events-none"
+    ></div>
+    <p class="opacity-90 lg:opacity-100 text-start text-body text-[12px] sm:text-xs md:text-sm">
       <%= sc("overview", "sidebar") %>
     </p>
   </div>
