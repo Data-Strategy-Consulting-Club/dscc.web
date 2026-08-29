@@ -13,11 +13,13 @@ export default class extends Controller {
 
     this.bindTouch()
     this.bindMouse()
+    this.bindWheel()
   }
 
   disconnect() {
     this.unbindTouch()
     this.unbindMouse()
+    this.unbindWheel()
   }
 
   bindTouch() {
@@ -38,7 +40,7 @@ export default class extends Controller {
     }
 
     this.track.addEventListener("touchstart", this.onTouchStart, { passive: true })
-    this.track.addEventListener("touchmove", this.onTouchMove, { passive: false })
+    this.track.addEventListener("touchmove", this.onTouchMove, { passive: true })
   }
 
   unbindTouch() {
@@ -54,6 +56,9 @@ export default class extends Controller {
       this.scrollLeft = this.track.scrollLeft
       this.track.style.cursor = "grabbing"
       this.track.style.userSelect = "none"
+
+      window.addEventListener("mousemove", this.onMouseMove)
+      window.addEventListener("mouseup", this.onMouseUp)
     }
 
     this.onMouseMove = (e) => {
@@ -70,17 +75,32 @@ export default class extends Controller {
       this.isDragging = false
       this.track.style.cursor = ""
       this.track.style.removeProperty("user-select")
+
+      window.removeEventListener("mousemove", this.onMouseMove)
+      window.removeEventListener("mouseup", this.onMouseUp)
     }
 
     this.track.addEventListener("mousedown", this.onMouseDown)
-    window.addEventListener("mousemove", this.onMouseMove)
-    window.addEventListener("mouseup", this.onMouseUp)
   }
 
   unbindMouse() {
     if (this.onMouseDown) this.track.removeEventListener("mousedown", this.onMouseDown)
     if (this.onMouseMove) window.removeEventListener("mousemove", this.onMouseMove)
     if (this.onMouseUp) window.removeEventListener("mouseup", this.onMouseUp)
+  }
+
+  bindWheel() {
+    this.onWheel = (e) => {
+      if (window.innerWidth >= 1280) return
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        e.stopPropagation()
+      }
+    }
+    this.track.addEventListener("wheel", this.onWheel, { passive: true })
+  }
+
+  unbindWheel() {
+    if (this.onWheel) this.track.removeEventListener("wheel", this.onWheel)
   }
 
   prev() {
@@ -95,3 +115,4 @@ export default class extends Controller {
     this.track.scrollBy({ left: cardWidth + 24, behavior: "smooth" })
   }
 }
+
