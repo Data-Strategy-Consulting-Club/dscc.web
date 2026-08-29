@@ -13,11 +13,13 @@ export default class extends Controller {
 
     this.bindTouch()
     this.bindMouse()
+    this.bindWheel()
   }
 
   disconnect() {
     this.unbindTouch()
     this.unbindMouse()
+    this.unbindWheel()
   }
 
   bindTouch() {
@@ -38,7 +40,7 @@ export default class extends Controller {
     }
 
     this.track.addEventListener("touchstart", this.onTouchStart, { passive: true })
-    this.track.addEventListener("touchmove", this.onTouchMove, { passive: false })
+    this.track.addEventListener("touchmove", this.onTouchMove, { passive: true })
   }
 
   unbindTouch() {
@@ -83,6 +85,20 @@ export default class extends Controller {
     if (this.onMouseUp) window.removeEventListener("mouseup", this.onMouseUp)
   }
 
+  bindWheel() {
+    this.onWheel = (e) => {
+      if (window.innerWidth >= 1280) return
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+        e.stopPropagation()
+      }
+    }
+    this.track.addEventListener("wheel", this.onWheel, { passive: true })
+  }
+
+  unbindWheel() {
+    if (this.onWheel) this.track.removeEventListener("wheel", this.onWheel)
+  }
+
   prev() {
     const cards = this.track.querySelectorAll(".snap-center")
     const cardWidth = cards[0]?.offsetWidth || 340
@@ -95,3 +111,4 @@ export default class extends Controller {
     this.track.scrollBy({ left: cardWidth + 24, behavior: "smooth" })
   }
 }
+

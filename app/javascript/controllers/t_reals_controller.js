@@ -19,64 +19,91 @@ export default class extends Controller {
     this.smoother = ScrollSmoother.create({
       wrapper: "#smooth-wrapper",
       content: "#smooth-content",
-      smooth: 1.2,
+      smooth: 2,
       effects: false,
-      normalizeScroll: false,
+      normalizeScroll: {
+        allowNestedScroll: true
+      },
       ignoreMobileResize: true
     })
 
     this.triggers = []
+    this.setupGalleries()
+    this.setupImageWatchers()
+  }
 
-    // Horizontal Scroll Galleries
+  setupGalleries() {
     const portfolio = document.getElementById("portfolio")
-    if (portfolio) {
-      const horizontalSections = gsap.utils.toArray(".horiz-gallery-wrapper")
+    if (!portfolio) return
 
-      horizontalSections.forEach((sec) => {
-        const pinWraps = sec.querySelectorAll(".horiz-gallery-strip")
+    const horizontalSections = gsap.utils.toArray(".horiz-gallery-wrapper")
 
-        pinWraps.forEach((pinWrap, j) => {
-          const direction = j % 2 === 0 ? -1 : 1
-          const scrollLength = pinWrap.scrollWidth - window.innerWidth
+    horizontalSections.forEach((sec) => {
+      const pinWraps = Array.from(sec.querySelectorAll(".horiz-gallery-strip"))
+      if (!pinWraps.length) return
 
-          if (direction === -1) {
-            const tween = gsap.to(pinWrap, {
-              scrollTrigger: {
-                scrub: 1,
-                trigger: sec,
-                pin: j === 0 ? sec : false,
-                start: "center center",
-                end: () => `+=${pinWrap.scrollWidth}`,
-                invalidateOnRefresh: true
-              },
-              x: () => -scrollLength,
-              ease: "none"
-            })
-            if (tween.scrollTrigger) this.triggers.push(tween.scrollTrigger)
-          } else {
-            const tween = gsap.fromTo(
-              pinWrap,
-              { x: () => -scrollLength },
-              {
-                scrollTrigger: {
-                  scrub: 1,
-                  trigger: sec,
-                  pin: false,
-                  start: "center center",
-                  end: () => `+=${pinWrap.scrollWidth}`,
-                  invalidateOnRefresh: true
-                },
-                x: 0,
-                ease: "none"
-              }
+      // Single timeline for the pinned section ensures all strips move synchronously
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sec,
+          pin: true,
+          scrub: true,
+          anticipatePin: 1,
+          start: "center center",
+          end: () => {
+            const maxScroll = Math.max(
+              ...pinWraps.map((pw) => Math.max(0, pw.scrollWidth - window.innerWidth))
             )
-            if (tween.scrollTrigger) this.triggers.push(tween.scrollTrigger)
-          }
-        })
+            return `+=${maxScroll + window.innerHeight * 0.5}`
+          },
+          invalidateOnRefresh: true
+        }
       })
-    }
+
+      pinWraps.forEach((pinWrap, j) => {
+        const direction = j % 2 === 0 ? -1 : 1
+        const getDistance = () => Math.max(0, pinWrap.scrollWidth - window.innerWidth)
+
+        if (direction === -1) {
+          tl.to(
+            pinWrap,
+            {
+              x: () => -getDistance(),
+              ease: "none",
+              force3D: true
+            },
+            0
+          )
+        } else {
+          tl.fromTo(
+            pinWrap,
+            { x: () => -getDistance() },
+            {
+              x: 0,
+              ease: "none",
+              force3D: true
+            },
+            0
+          )
+        }
+      })
+
+      if (tl.scrollTrigger) {
+        this.triggers.push(tl.scrollTrigger)
+      }
+    })
 
     ScrollTrigger.refresh()
+  }
+
+  setupImageWatchers() {
+    const images = this.element.querySelectorAll("img")
+    images.forEach((img) => {
+      if (!img.complete) {
+        img.addEventListener("load", () => ScrollTrigger.refresh(), { once: true })
+        img.addEventListener("error", () => ScrollTrigger.refresh(), { once: true })
+      }
+    })
   }
 
   disconnect() {
