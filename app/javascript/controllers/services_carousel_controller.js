@@ -56,6 +56,9 @@ export default class extends Controller {
       this.scrollLeft = this.track.scrollLeft
       this.track.style.cursor = "grabbing"
       this.track.style.userSelect = "none"
+
+      window.addEventListener("mousemove", this.onMouseMove)
+      window.addEventListener("mouseup", this.onMouseUp)
     }
 
     this.onMouseMove = (e) => {
@@ -72,11 +75,12 @@ export default class extends Controller {
       this.isDragging = false
       this.track.style.cursor = ""
       this.track.style.removeProperty("user-select")
+
+      window.removeEventListener("mousemove", this.onMouseMove)
+      window.removeEventListener("mouseup", this.onMouseUp)
     }
 
     this.track.addEventListener("mousedown", this.onMouseDown)
-    window.addEventListener("mousemove", this.onMouseMove)
-    window.addEventListener("mouseup", this.onMouseUp)
   }
 
   unbindMouse() {

@@ -11,14 +11,22 @@ export default class extends Controller {
 
   disconnect() {
     window.removeEventListener("resize", this.resizeHandler)
+    if (this.resizeHandler && typeof this.resizeHandler.cancel === "function") {
+      this.resizeHandler.cancel()
+    }
   }
 
   debounce(func, wait) {
     let timeout
-    return (...args) => {
+    const debounced = (...args) => {
       clearTimeout(timeout)
       timeout = setTimeout(() => func.apply(this, args), wait)
     }
+    debounced.cancel = () => {
+      clearTimeout(timeout)
+      timeout = null
+    }
+    return debounced
   }
 
   setup() {

@@ -107,11 +107,19 @@ export default class extends Controller {
   }
 
   setupImageWatchers() {
+    let refreshTimeout = null
+    const debouncedRefresh = () => {
+      if (refreshTimeout) clearTimeout(refreshTimeout)
+      refreshTimeout = setTimeout(() => {
+        ScrollTrigger.refresh()
+      }, 60)
+    }
+
     const images = this.element.querySelectorAll("img")
     images.forEach((img) => {
       if (!img.complete) {
-        img.addEventListener("load", () => ScrollTrigger.refresh(), { once: true })
-        img.addEventListener("error", () => ScrollTrigger.refresh(), { once: true })
+        img.addEventListener("load", debouncedRefresh, { once: true })
+        img.addEventListener("error", debouncedRefresh, { once: true })
       }
     })
   }
