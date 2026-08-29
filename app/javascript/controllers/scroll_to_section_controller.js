@@ -13,7 +13,15 @@ export default class extends Controller {
       history.scrollRestoration = "manual"
     }
 
+    this.timeouts = []
     this.handleInitialHash()
+  }
+
+  disconnect() {
+    if (this.timeouts) {
+      this.timeouts.forEach((id) => clearTimeout(id))
+      this.timeouts = []
+    }
   }
 
   handleInitialHash() {
@@ -41,10 +49,12 @@ export default class extends Controller {
     }
 
     if (document.readyState === "complete") {
-      setTimeout(performScroll, 120)
+      this.timeouts.push(setTimeout(performScroll, 120))
     } else {
-      window.addEventListener("load", () => setTimeout(performScroll, 80), { once: true })
-      setTimeout(performScroll, 220)
+      window.addEventListener("load", () => {
+        this.timeouts.push(setTimeout(performScroll, 80))
+      }, { once: true })
+      this.timeouts.push(setTimeout(performScroll, 220))
     }
   }
 
