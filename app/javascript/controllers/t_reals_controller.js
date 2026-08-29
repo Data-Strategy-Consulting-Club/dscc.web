@@ -45,6 +45,7 @@ export default class extends Controller {
       // Single timeline for the pinned section ensures all strips move synchronously
       const tl = gsap.timeline({
         scrollTrigger: {
+          id: "three-reals",
           trigger: sec,
           pin: true,
           scrub: true,
@@ -90,6 +91,15 @@ export default class extends Controller {
 
       if (tl.scrollTrigger) {
         this.triggers.push(tl.scrollTrigger)
+
+        // Track the entire #reals section from its top header to the end of the pinned gallery
+        const sectionTrigger = ScrollTrigger.create({
+          id: "three-reals-section",
+          trigger: this.element,
+          start: "top 80px",
+          end: () => tl.scrollTrigger.end
+        })
+        this.triggers.push(sectionTrigger)
       }
     })
 

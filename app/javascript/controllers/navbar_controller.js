@@ -31,6 +31,13 @@ export default class extends Controller {
           return
         }
 
+        // When scrolling inside the 3 Reels section, keep navbar closed
+        const realsSectionTrigger = ScrollTrigger.getById("three-reals-section") || ScrollTrigger.getById("three-reals")
+        if (realsSectionTrigger && realsSectionTrigger.isActive) {
+          if (!this.isHidden) this.hide()
+          return
+        }
+
         if (direction === 1 && !this.isHidden) {
           this.hide()
         } else if (direction === -1 && this.isHidden) {
