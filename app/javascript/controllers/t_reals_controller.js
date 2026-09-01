@@ -96,7 +96,7 @@ export default class extends Controller {
         const sectionTrigger = ScrollTrigger.create({
           id: "three-reals-section",
           trigger: this.element,
-          start: "top 80px",
+          start: "top top",
           end: () => tl.scrollTrigger.end
         })
         this.triggers.push(sectionTrigger)
