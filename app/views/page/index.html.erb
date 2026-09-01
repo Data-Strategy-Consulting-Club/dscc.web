@@ -1,6 +1,6 @@
-<section id="overview" class="relative min-h-screen min-h-svh flex flex-col justify-center items-center gap-12 sm:gap-8 px-6 pt-20 pb-12 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:px-16 lg:py-0">
+<section id="overview" class="relative min-h-screen min-h-svh flex flex-col justify-center items-center gap-10 sm:gap-8 px-6 pt-20 pb-12 sm:px-10 lg:flex-row lg:justify-between lg:items-stretch lg:gap-8 xl:gap-12 lg:px-10 xl:px-16 lg:pt-24 lg:pb-12">
   <div id="overview-bg" data-controller="vanta-topology" class="absolute inset-0 -z-20"></div>
-  <div class="relative flex flex-col items-center text-center lg:items-start lg:text-start lg:max-w-xl">
+  <div class="relative flex flex-col items-center text-center lg:items-start lg:text-start lg:self-center lg:max-w-lg xl:max-w-xl">
     <div
       class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
              w-[450px] h-[450px] sm:w-[800px] sm:h-[800px]
@@ -13,7 +13,7 @@
     <p class="mb-5 sm:mb-6 text-sm sm:text-base md:text-base lg:text-lg xl:text-xl font-normal text-body"><%= sc("overview", "tagline") %></p>
     <a href="#contact" data-action="click->scroll-to-section#scroll" class="inline-block self-center lg:self-start text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-sm sm:text-base px-4 py-2.5 sm:px-5 sm:py-3 focus:outline-none cursor-pointer"><%= sc("navbar", "contact_button") %></a>
   </div>
-  <div class="relative w-full max-w-md lg:w-100">
+  <div class="relative w-full max-w-md lg:max-w-none lg:w-80 xl:w-96 lg:self-start lg:mt-2 xl:mt-4">
     <div
       class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
              w-[450px] h-[450px] sm:w-[1000px] sm:h-[800px]
@@ -22,7 +22,7 @@
              -z-10
              pointer-events-none"
     ></div>
-    <p class="opacity-90 lg:opacity-100 text-center lg:text-start text-body text-[12px] sm:text-xs md:text-sm">
+    <p class="opacity-90 lg:opacity-100 text-center lg:text-start text-body text-[12px] sm:text-xs md:text-sm leading-relaxed">
       <%= sc("overview", "sidebar") %>
     </p>
   </div>
@@ -35,7 +35,7 @@
 
 <section
   id="who-we-are"
-  class="flex flex-col lg:flex-row justify-between items-center px-6 sm:px-12 lg:px-24 py-16 sm:py-20 lg:py-24 gap-8 lg:gap-12 min-h-screen"
+  class="flex flex-col lg:flex-row justify-center lg:justify-between items-center px-6 sm:px-10 md:px-12 lg:px-16 xl:px-24 py-12 md:py-16 lg:py-20 gap-8 md:gap-10 lg:gap-12 min-h-0 lg:min-h-screen"
 >
   <!-- Content -->
   <div class="order-2 lg:order-1 flex-1 max-w-xl">
@@ -50,7 +50,7 @@
 
   <!-- Image -->
   <%= link_to gallery_path,
-      class: "order-1 lg:order-2 w-full max-w-[600px] h-64 sm:h-80 lg:w-[600px] lg:h-[400px] flex items-center justify-center bg-neutral-quaternary rounded-base flex-shrink-0 overflow-hidden shadow-sm transition-all duration-300 transform hover:scale-[1.03] hover:shadow-lg active:scale-95 cursor-pointer block group" do %>
+      class: "order-1 lg:order-2 w-full max-w-[600px] h-64 sm:h-80 lg:w-[460px] lg:h-[320px] xl:w-[600px] xl:h-[400px] flex items-center justify-center bg-neutral-quaternary rounded-base flex-shrink-0 overflow-hidden shadow-sm transition-all duration-300 transform hover:scale-[1.03] hover:shadow-lg active:scale-95 cursor-pointer block group" do %>
     <% if (img = sc_image("who_we_are", "image", size: :large, alt: "Who We Are - DSCC", class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105")) %>
       <%= img %>
     <% else %>
@@ -76,7 +76,7 @@
 <section
   id="services"
   data-controller="services-carousel"
-  class="flex flex-col justify-center min-h-screen px-6 py-16 sm:py-20 lg:py-24 md:px-12 lg:px-20 xl:px-40"
+  class="flex flex-col justify-center min-h-0 lg:min-h-screen px-6 py-12 md:py-16 lg:py-20 md:px-12 lg:px-16 xl:px-40"
 >
   <!-- Header -->
   <div class="max-w-4xl mx-auto text-center">

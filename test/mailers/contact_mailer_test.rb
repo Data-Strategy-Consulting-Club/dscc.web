@@ -2,7 +2,8 @@ require "test_helper"
 
 class ContactMailerTest < ActionMailer::TestCase
   test "contact_email creates email with correct headers and body" do
-    SiteContent.create!(section: "contact_us", key: "email_value", content: "team@dscc.org")
+    record = SiteContent.find_or_initialize_by(section: "contact_us", key: "email_value")
+    record.update!(content: "team@dscc.org")
 
     mail = ContactMailer.contact_email(
       "Jane Doe",
