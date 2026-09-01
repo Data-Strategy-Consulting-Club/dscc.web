@@ -34,14 +34,14 @@ export default class extends Controller {
         ScrollTrigger.refresh()
         const smoother = ScrollSmoother.get()
         if (smoother) {
-          smoother.scrollTo(target, true, "top 80px")
+          smoother.scrollTo(target, true, "top top")
         } else {
           gsap.to(window, {
             duration: 0.8,
             ease: "power2.inOut",
             scrollTo: {
               y: target,
-              offsetY: 80
+              offsetY: 0
             }
           })
         }
@@ -88,7 +88,7 @@ export default class extends Controller {
 
     const smoother = ScrollSmoother.get()
     if (smoother) {
-      smoother.scrollTo(target, smooth, "top 80px")
+      smoother.scrollTo(target, smooth, "top top")
     } else {
       if (smooth) {
         gsap.to(window, {
@@ -96,11 +96,11 @@ export default class extends Controller {
           ease: "power2.inOut",
           scrollTo: {
             y: target,
-            offsetY: 80
+            offsetY: 0
           }
         })
       } else {
-        const top = target.getBoundingClientRect().top + window.pageYOffset - 80
+        const top = target.getBoundingClientRect().top + window.pageYOffset
         window.scrollTo(0, top)
       }
     }
