@@ -1,6 +1,6 @@
-<section id="overview" class="relative min-h-screen min-h-svh flex flex-col justify-center items-center gap-12 sm:gap-8 px-6 pt-20 pb-12 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12 lg:px-16 lg:py-0">
+<section id="overview" class="relative min-h-screen min-h-svh flex flex-col justify-center items-center gap-10 sm:gap-8 px-6 pt-20 pb-12 sm:px-10 lg:flex-row lg:justify-between lg:items-stretch lg:gap-8 xl:gap-12 lg:px-10 xl:px-16 lg:pt-24 lg:pb-12">
   <div id="overview-bg" data-controller="vanta-topology" class="absolute inset-0 -z-20"></div>
-  <div class="relative flex flex-col items-center text-center lg:items-start lg:text-start lg:max-w-xl">
+  <div class="relative flex flex-col items-center text-center lg:items-start lg:text-start lg:self-center lg:max-w-lg xl:max-w-xl">
     <div
       class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
              w-[450px] h-[450px] sm:w-[800px] sm:h-[800px]
@@ -13,7 +13,7 @@
     <p class="mb-5 sm:mb-6 text-sm sm:text-base md:text-base lg:text-lg xl:text-xl font-normal text-body"><%= sc("overview", "tagline") %></p>
     <a href="#contact" data-action="click->scroll-to-section#scroll" class="inline-block self-center lg:self-start text-white bg-brand hover:bg-brand-strong box-border border border-transparent focus:ring-4 focus:ring-brand-medium shadow-xs font-medium rounded-base text-sm sm:text-base px-4 py-2.5 sm:px-5 sm:py-3 focus:outline-none cursor-pointer"><%= sc("navbar", "contact_button") %></a>
   </div>
-  <div class="relative w-full max-w-md lg:w-100">
+  <div class="relative w-full max-w-md lg:max-w-none lg:w-80 xl:w-96 lg:self-start lg:mt-2 xl:mt-4">
     <div
       class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
              w-[450px] h-[450px] sm:w-[1000px] sm:h-[800px]
@@ -22,7 +22,7 @@
              -z-10
              pointer-events-none"
     ></div>
-    <p class="opacity-90 lg:opacity-100 text-center lg:text-start text-body text-[12px] sm:text-xs md:text-sm">
+    <p class="opacity-90 lg:opacity-100 text-center lg:text-start text-body text-[12px] sm:text-xs md:text-sm leading-relaxed">
       <%= sc("overview", "sidebar") %>
     </p>
   </div>
