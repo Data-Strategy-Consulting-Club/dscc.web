@@ -8,9 +8,9 @@ class Admin::ContentControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get show when authenticated" do
-    SiteContent.create!(section: "overview", key: "h1", content: "Main Heading")
-    SiteContent.create!(section: "three_reals", key: "client_image_0", content: "")
-    SiteContent.create!(section: "trusted_by", key: "image_0", content: "")
+    SiteContent.find_or_initialize_by(section: "overview", key: "h1").update!(content: "Main Heading")
+    SiteContent.find_or_initialize_by(section: "three_reals", key: "client_image_0").update!(content: "")
+    SiteContent.find_or_initialize_by(section: "trusted_by", key: "image_0").update!(content: "")
 
     get admin_content_url
     assert_response :success

@@ -35,7 +35,7 @@
 
 <section
   id="who-we-are"
-  class="flex flex-col lg:flex-row justify-between items-center px-6 sm:px-12 lg:px-24 py-16 sm:py-20 lg:py-24 gap-8 lg:gap-12 min-h-screen"
+  class="flex flex-col lg:flex-row justify-center lg:justify-between items-center px-6 sm:px-10 md:px-12 lg:px-16 xl:px-24 py-12 md:py-16 lg:py-20 gap-8 md:gap-10 lg:gap-12 min-h-0 lg:min-h-screen"
 >
   <!-- Content -->
   <div class="order-2 lg:order-1 flex-1 max-w-xl">
@@ -50,7 +50,7 @@
 
   <!-- Image -->
   <%= link_to gallery_path,
-      class: "order-1 lg:order-2 w-full max-w-[600px] h-64 sm:h-80 lg:w-[600px] lg:h-[400px] flex items-center justify-center bg-neutral-quaternary rounded-base flex-shrink-0 overflow-hidden shadow-sm transition-all duration-300 transform hover:scale-[1.03] hover:shadow-lg active:scale-95 cursor-pointer block group" do %>
+      class: "order-1 lg:order-2 w-full max-w-[600px] h-64 sm:h-80 lg:w-[460px] lg:h-[320px] xl:w-[600px] xl:h-[400px] flex items-center justify-center bg-neutral-quaternary rounded-base flex-shrink-0 overflow-hidden shadow-sm transition-all duration-300 transform hover:scale-[1.03] hover:shadow-lg active:scale-95 cursor-pointer block group" do %>
     <% if (img = sc_image("who_we_are", "image", size: :large, alt: "Who We Are - DSCC", class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105")) %>
       <%= img %>
     <% else %>
@@ -76,7 +76,7 @@
 <section
   id="services"
   data-controller="services-carousel"
-  class="flex flex-col justify-center min-h-screen px-6 py-16 sm:py-20 lg:py-24 md:px-12 lg:px-20 xl:px-40"
+  class="flex flex-col justify-center min-h-0 lg:min-h-screen px-6 py-12 md:py-16 lg:py-20 md:px-12 lg:px-16 xl:px-40"
 >
   <!-- Header -->
   <div class="max-w-4xl mx-auto text-center">
